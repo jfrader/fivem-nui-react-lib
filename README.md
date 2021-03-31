@@ -49,6 +49,7 @@ If no event is received after the timeout time, it will throw as timeout error.
 # license
 
 fivem-nui-react-lib - A set of tools to handle NUI events in react
+
 Copyright (C) 2021  J Francisco Rader <franciscorader@gmail.com> (kidz)
 
 This program is free software: you can redistribute it and/or modify

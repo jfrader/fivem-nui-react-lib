@@ -1,6 +1,6 @@
 {
   "name": "fivem-nui-react-lib",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A set of tools to handle Nui Events in React",
   "main": "dist/index.js",
   "scripts": {
