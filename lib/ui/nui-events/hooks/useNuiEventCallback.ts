@@ -15,7 +15,7 @@ export const useNuiEventCallback = <I = unknown, R = unknown>(
   errHandler?: Function,
 ): UseNuiEventCallbackResponse<I, R> => {
   const fetchRef = useRef<IAbortableFetch>();
-  const timeoutRef = useRef<typeof setTimeout>();
+  const timeoutRef = useRef<NodeJS.Timeout>();
 
   // These are Refs to avoid re renders.
   // We dont care if "app" and "method" arguments change.
