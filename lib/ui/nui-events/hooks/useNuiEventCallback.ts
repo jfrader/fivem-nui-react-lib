@@ -55,10 +55,6 @@ export const useNuiEventCallback = <I = unknown, R = unknown>(
       }
       // If we receive eventNameSuccess event, clear timeout
       timeoutRef.current && clearTimeout(timeoutRef.current);
-      // If already timed out, don't do shit :)
-      if (timedOut) {
-        return;
-      }
       // Set new state after error event received
       setError(err);
       setResponse(null);
