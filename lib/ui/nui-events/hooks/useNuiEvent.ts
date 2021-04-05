@@ -2,11 +2,12 @@ import { MutableRefObject, useEffect, useRef } from "react";
 import { eventNameFactory } from "../utils/eventNameFactory";
 
 function addEventListener<T extends EventTarget, E extends Event>(
-  element: T, type: string, handler: (this: T, evt: E) => void) {
+  element: T,
+  type: string,
+  handler: (this: T, evt: E) => void
+) {
   element.addEventListener(type, handler as (evt: Event) => void);
 }
-
-const defaultOptions = {};
 
 /**
  * A hook that manage events listeners for receiving data from the NUI
@@ -14,11 +15,7 @@ const defaultOptions = {};
  * @param method The specific `method` field that should be listened for.
  * @param handler The callback function that will handle data relayed by this hook
  **/
-export const useNuiEvent = <S = Record<string, unknown>>(
-  app: string,
-  method: string,
-  handler: Function
-) => {
+export const useNuiEvent = (app: string, method: string, handler: Function) => {
   const savedHandler: MutableRefObject<any> = useRef();
 
   // When handler value changes set mutable ref to handler val

@@ -23,7 +23,7 @@ import { useNuiRequest } from 'fivem-nui-react-lib';
 
 function MyComponent() {
   const { send } = useNuiRequest();
-  useNuiEvent('MYAPP', 'MyMethod', setMyState);
+  send('MYAPP', 'MyMethod', setMyState);
 }
 ```
 

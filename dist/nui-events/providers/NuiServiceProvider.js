@@ -95,5 +95,5 @@ export var NuiServiceProvider = function (_a) {
         if (data === void 0) { data = {}; }
         return abortableFetch.apply(void 0, getParams(resource, event, data));
     };
-    return (_jsx(NuiServiceContext.Provider, { value: { resource: resource, send: send, sendAbortable: sendAbortable } }, void 0));
+    return (_jsx(NuiServiceContext.Provider, __assign({ value: { resource: resource, send: send, sendAbortable: sendAbortable } }, { children: children }), void 0));
 };

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { NuiServiceContext } from "../context/NuiServiceContext";
 import { eventNameFactory } from "../utils/eventNameFactory";
 
@@ -37,6 +37,8 @@ export const NuiServiceProvider = ({
   resource: string;
   children: JSX.Element;
 }) => {
+  const resourceRef = useRef<string>();
+
   const eventListener = (event: any) => {
     const { app, method, data } = event.data;
     if (app && method) {
@@ -47,20 +49,27 @@ export const NuiServiceProvider = ({
       );
     }
   };
+
   useEffect(() => {
     window.addEventListener("message", eventListener);
     return () => window.removeEventListener("message", eventListener);
   }, []);
 
-  const send = async (event: string, data = {}) => {
+  const send = useCallback(async (event: string, data = {}) => {
     return fetch(...getParams(resource, event, data));
-  };
-  const sendAbortable = (event: string, data = {}): IAbortableFetch => {
-    return abortableFetch(...getParams(resource, event, data));
-  };
+  }, []);
+
+  const sendAbortable = useCallback(
+    (event: string, data = {}): IAbortableFetch => {
+      return abortableFetch(...getParams(resource, event, data));
+    },
+    []
+  );
 
   return (
-    <NuiServiceContext.Provider value={{ resource, send, sendAbortable }}>
+    <NuiServiceContext.Provider
+      value={{ resource: resourceRef.current, send, sendAbortable }}
+    >
       {children}
     </NuiServiceContext.Provider>
   );
