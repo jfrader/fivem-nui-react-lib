@@ -45,6 +45,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+import { jsx as _jsx } from "react/jsx-runtime";
+import { useEffect } from "react";
+import { NuiServiceContext } from "../context/NuiServiceContext";
+import { eventNameFactory } from "../utils/eventNameFactory";
 function abortableFetch(request, opts) {
     var controller = new AbortController();
     var signal = controller.signal;
@@ -53,29 +57,43 @@ function abortableFetch(request, opts) {
         promise: fetch(request, __assign(__assign({}, opts), { signal: signal })),
     };
 }
-function getParams(event, data) {
+function getParams(resource, event, data) {
     return [
-        "https://new-phone-who-dis/" + event,
+        "https://" + resource + "/" + event,
         {
-            method: 'post',
+            method: "post",
             headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
+                "Content-Type": "application/json; charset=UTF-8",
             },
             body: JSON.stringify(data),
         },
     ];
 }
-export default {
-    send: function (event, data) {
+export var NuiServiceProvider = function (_a) {
+    var resource = _a.resource, children = _a.children;
+    var eventListener = function (event) {
+        var _a = event.data, app = _a.app, method = _a.method, data = _a.data;
+        if (app && method) {
+            window.dispatchEvent(new MessageEvent(eventNameFactory(app, method), {
+                data: data,
+            }));
+        }
+    };
+    useEffect(function () {
+        window.addEventListener("message", eventListener);
+        return function () { return window.removeEventListener("message", eventListener); };
+    }, []);
+    var send = function (event, data) {
         if (data === void 0) { data = {}; }
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(void 0, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, fetch.apply(void 0, getParams(event, data))];
+                return [2 /*return*/, fetch.apply(void 0, getParams(resource, event, data))];
             });
         });
-    },
-    sendAbortable: function (event, data) {
+    };
+    var sendAbortable = function (event, data) {
         if (data === void 0) { data = {}; }
-        return abortableFetch.apply(void 0, getParams(event, data));
-    },
+        return abortableFetch.apply(void 0, getParams(resource, event, data));
+    };
+    return (_jsx(NuiServiceContext.Provider, { value: { resource: resource, send: send, sendAbortable: sendAbortable } }, void 0));
 };

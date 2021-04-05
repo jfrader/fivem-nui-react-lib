@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { IAbortableFetch } from "../context/NuiServiceContext";
+import { IAbortableFetch } from "../providers/NuiServiceProvider";
 import { eventNameFactory } from "../utils/eventNameFactory";
 import { useNuiEvent } from "./useNuiEvent";
 import { useNuiRequest } from "./useNuiRequest";

@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import Nui from '../utils/Nui';
-import { eventNameFactory } from '../utils/nuiUtils';
-import { useNuiEvent } from './useNuiEvent';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { eventNameFactory } from "../utils/eventNameFactory";
+import { useNuiEvent } from "./useNuiEvent";
+import { useNuiRequest } from "./useNuiRequest";
 export var useNuiEventCallback = function (app, method, handler, errHandler) {
+    var sendAbortable = useNuiRequest().sendAbortable;
     var fetchRef = useRef();
     var timeoutRef = useRef();
     // These are Refs to avoid re renders.
@@ -62,7 +63,7 @@ export var useNuiEventCallback = function (app, method, handler, errHandler) {
     var fetch = useCallback(function (data) {
         setLoading(function (curr) {
             if (!curr) {
-                fetchRef.current = Nui.sendAbortable(methodNameRef.current, data);
+                fetchRef.current = sendAbortable(methodNameRef.current, data);
                 return true;
             }
             return curr;

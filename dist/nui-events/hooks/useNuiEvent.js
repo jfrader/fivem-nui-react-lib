@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { eventNameFactory } from "../utils/nuiUtils";
+import { eventNameFactory } from "../utils/eventNameFactory";
 function addEventListener(element, type, handler) {
     element.addEventListener(type, handler);
 }

@@ -1,9 +1,5 @@
 import { createContext } from "react";
-
-export interface IAbortableFetch {
-  abort: () => void;
-  promise: Promise<Response>;
-}
+import { IAbortableFetch } from "../providers/NuiServiceProvider";
 
 export interface NuiServiceContext {
   resource: string;
