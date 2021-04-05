@@ -6,20 +6,30 @@ A set of tools NUI events in react
 
 `npm install --save fivem-nui-react-lib`
 
-Use Service
+Use Provider
 ```js
-import { useNuiService } from 'fivem-nui-react-lib'
+import { NuiServiceProvider } from 'fivem-nui-react-lib';
 
 function App() {
-  // Call this in your top level app component
-  // This is needed to use all the other hooks
-  useNuiService();
+  return <NuiServiceProvider resource="my-resource-name">
+    <div>This is my app</div>
+  </NuiServiceProvider>
+}
+```
+
+Send requests to client
+```js
+import { useNuiRequest } from 'fivem-nui-react-lib';
+
+function MyComponent() {
+  const { send } = useNuiRequest();
+  useNuiEvent('MYAPP', 'MyMethod', setMyState);
 }
 ```
 
 Receive events from client and set your state
 ```js
-import { useNuiEvent } from 'fivem-nui-react-lib'
+import { useNuiEvent } from 'fivem-nui-react-lib';
 
 function MyComponent() {
   const [myState, setMyState] = useState(null);
@@ -29,7 +39,7 @@ function MyComponent() {
 
 Make callbacks for "myEvent" by sending back "myEventSuccess" or "myEventError" from the client
 ```js
-import { useNuiEvent } from 'fivem-nui-react-lib'
+import { useNuiEventCallback } from 'fivem-nui-react-lib'
 
 function MyComponent() {
   const [myState, setMyState] = useState(null);
