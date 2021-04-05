@@ -60,8 +60,8 @@ export const NuiServiceProvider = ({
   };
 
   return (
-    <NuiServiceContext.Provider
-      value={{ resource, send, sendAbortable }}
-    ></NuiServiceContext.Provider>
+    <NuiServiceContext.Provider value={{ resource, send, sendAbortable }}>
+      {children}
+    </NuiServiceContext.Provider>
   );
 };
