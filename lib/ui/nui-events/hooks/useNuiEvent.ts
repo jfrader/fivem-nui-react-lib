@@ -1,5 +1,5 @@
 import { MutableRefObject, useEffect, useRef } from "react";
-import { eventNameFactory } from "../utils/nuiUtils";
+import { eventNameFactory } from "../utils/eventNameFactory";
 
 function addEventListener<T extends EventTarget, E extends Event>(
   element: T, type: string, handler: (this: T, evt: E) => void) {

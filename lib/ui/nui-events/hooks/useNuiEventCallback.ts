@@ -1,19 +1,22 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import Nui, { IAbortableFetch } from '../utils/Nui';
-import { eventNameFactory } from '../utils/nuiUtils';
-import { useNuiEvent } from './useNuiEvent';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { IAbortableFetch } from "../context/NuiServiceContext";
+import { eventNameFactory } from "../utils/eventNameFactory";
+import { useNuiEvent } from "./useNuiEvent";
+import { useNuiRequest } from "./useNuiRequest";
 
 type UseNuiEventCallbackResponse<I, R> = [
   (d?: I) => void,
-  { loading: boolean; error: any; response: R },
+  { loading: boolean; error: any; response: R }
 ];
 
 export const useNuiEventCallback = <I = unknown, R = unknown>(
   app: string,
   method: string,
   handler?: (res: R) => void,
-  errHandler?: Function,
+  errHandler?: Function
 ): UseNuiEventCallbackResponse<I, R> => {
+  const { sendAbortable } = useNuiRequest();
+
   const fetchRef = useRef<IAbortableFetch>();
   const timeoutRef = useRef<NodeJS.Timeout>();
 
@@ -45,7 +48,7 @@ export const useNuiEventCallback = <I = unknown, R = unknown>(
       setLoading(false);
       handler?.(data);
     },
-    [handler, timedOut, loading],
+    [handler, timedOut, loading]
   );
 
   const onError = useCallback(
@@ -61,7 +64,7 @@ export const useNuiEventCallback = <I = unknown, R = unknown>(
       setLoading(false);
       errHandler?.(err);
     },
-    [errHandler, timedOut, loading],
+    [errHandler, timedOut, loading]
   );
 
   // React to loading change and starting timeout timer.
@@ -71,7 +74,9 @@ export const useNuiEventCallback = <I = unknown, R = unknown>(
       timeoutRef.current = setTimeout(() => {
         setTimedOut(true);
         onError(
-          new Error(`${eventNameRef.current} NUI Event Callback timed out after 10000 seconds`),
+          new Error(
+            `${eventNameRef.current} NUI Event Callback timed out after 10000 seconds`
+          )
         );
         fetchRef.current && fetchRef.current.abort();
         timeoutRef.current = undefined;
@@ -88,7 +93,7 @@ export const useNuiEventCallback = <I = unknown, R = unknown>(
   const fetch = useCallback((data?: I) => {
     setLoading((curr) => {
       if (!curr) {
-        fetchRef.current = Nui.sendAbortable(methodNameRef.current, data);
+        fetchRef.current = sendAbortable(methodNameRef.current, data);
         return true;
       }
       return curr;
