@@ -30,10 +30,14 @@ function getParams(resource, event, data): [RequestInfo, RequestInit] {
   ];
 }
 
+const DEFAULT_TIMEOUT = 10000;
+
 export const NuiServiceProvider = ({
   resource,
   children,
+  timeout,
 }: {
+  timeout?: number;
   resource: string;
   children: JSX.Element;
 }) => {
@@ -68,7 +72,12 @@ export const NuiServiceProvider = ({
 
   return (
     <NuiServiceContext.Provider
-      value={{ resource: resourceRef.current, send, sendAbortable }}
+      value={{
+        resource: resourceRef.current,
+        send,
+        sendAbortable,
+        callbackTimeout: timeout || DEFAULT_TIMEOUT,
+      }}
     >
       {children}
     </NuiServiceContext.Provider>

@@ -3,7 +3,6 @@ import { eventNameFactory } from "../utils/eventNameFactory";
 function addEventListener(element, type, handler) {
     element.addEventListener(type, handler);
 }
-var defaultOptions = {};
 /**
  * A hook that manage events listeners for receiving data from the NUI
  * @param app The app name in which this hoook is used

@@ -46,7 +46,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import { jsx as _jsx } from "react/jsx-runtime";
-import { useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { NuiServiceContext } from "../context/NuiServiceContext";
 import { eventNameFactory } from "../utils/eventNameFactory";
 function abortableFetch(request, opts) {
@@ -71,6 +71,7 @@ function getParams(resource, event, data) {
 }
 export var NuiServiceProvider = function (_a) {
     var resource = _a.resource, children = _a.children;
+    var resourceRef = useRef();
     var eventListener = function (event) {
         var _a = event.data, app = _a.app, method = _a.method, data = _a.data;
         if (app && method) {
@@ -83,17 +84,17 @@ export var NuiServiceProvider = function (_a) {
         window.addEventListener("message", eventListener);
         return function () { return window.removeEventListener("message", eventListener); };
     }, []);
-    var send = function (event, data) {
+    var send = useCallback(function (event, data) {
         if (data === void 0) { data = {}; }
         return __awaiter(void 0, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, fetch.apply(void 0, getParams(resource, event, data))];
             });
         });
-    };
-    var sendAbortable = function (event, data) {
+    }, []);
+    var sendAbortable = useCallback(function (event, data) {
         if (data === void 0) { data = {}; }
         return abortableFetch.apply(void 0, getParams(resource, event, data));
-    };
-    return (_jsx(NuiServiceContext.Provider, __assign({ value: { resource: resource, send: send, sendAbortable: sendAbortable } }, { children: children }), void 0));
+    }, []);
+    return (_jsx(NuiServiceContext.Provider, __assign({ value: { resource: resourceRef.current, send: send, sendAbortable: sendAbortable } }, { children: children }), void 0));
 };

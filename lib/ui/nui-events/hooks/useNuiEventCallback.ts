@@ -15,7 +15,7 @@ export const useNuiEventCallback = <I = unknown, R = unknown>(
   handler?: (res: R) => void,
   errHandler?: Function
 ): UseNuiEventCallbackResponse<I, R> => {
-  const { sendAbortable } = useNuiRequest();
+  const { sendAbortable, callbackTimeout } = useNuiRequest();
 
   const fetchRef = useRef<IAbortableFetch>();
   const timeoutRef = useRef<NodeJS.Timeout>();
@@ -36,7 +36,7 @@ export const useNuiEventCallback = <I = unknown, R = unknown>(
       if (!loading) {
         return;
       }
-      // If we receive eventNameSuccess event, clear timeout
+      // If we receive success event, clear timeout
       timeoutRef.current && clearTimeout(timeoutRef.current);
       // If already timed out, don't do shit :)
       if (timedOut) {
@@ -53,10 +53,7 @@ export const useNuiEventCallback = <I = unknown, R = unknown>(
 
   const onError = useCallback(
     (err: any) => {
-      if (!loading) {
-        return;
-      }
-      // If we receive eventNameSuccess event, clear timeout
+      // If we receive error event, clear timeout
       timeoutRef.current && clearTimeout(timeoutRef.current);
       // Set new state after error event received
       setError(err);
@@ -64,7 +61,7 @@ export const useNuiEventCallback = <I = unknown, R = unknown>(
       setLoading(false);
       errHandler?.(err);
     },
-    [errHandler, timedOut, loading]
+    [errHandler],
   );
 
   // React to loading change and starting timeout timer.
@@ -75,7 +72,7 @@ export const useNuiEventCallback = <I = unknown, R = unknown>(
         setTimedOut(true);
         onError(
           new Error(
-            `${eventNameRef.current} NUI Event Callback timed out after 10000 seconds`
+            `fivem-nui-react-lib: "${eventNameRef.current}" event callback timed out after ${callbackTimeout} milliseconds`
           )
         );
         fetchRef.current && fetchRef.current.abort();
