@@ -13,6 +13,12 @@ type UseNuiCallbackResponse<I, R> = [(d?: I) => void, { loading: boolean; error:
  * @param handler {function} receive the data sent by the client when success
  * @param errHandler {function} receive the data sent by the client when errored
  * @returns {[fetchFn, { loading, error, response }]}
+ * @example
+ * const [dataState, setDataState] = useState<boolean>();
+ * const [fetchUser, { loading, error, response }] = useNuiCallback<number, IUser>("appname", "fetchUser");
+ * useEffect(() => {
+ *  fetchUser(11);
+ * }, [fetchUser]);
  */
 export const useNuiCallback = <I = unknown, R = unknown>(
   app: string,
