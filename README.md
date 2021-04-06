@@ -15,7 +15,7 @@ import { NuiProvider } from "fivem-nui-react-lib";
 
 function App() {
   return (
-    <NuiProvider resource="my-resource-name" timeout={/*default: 10000*/ 5000}>
+    <NuiProvider resource="my-resource-name">
       <div>This is my app</div>
     </NuiProvider>
   );
