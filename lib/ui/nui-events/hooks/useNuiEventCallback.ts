@@ -4,10 +4,7 @@ import { IAbortableFetch } from "../providers/NuiServiceProvider";
 import { eventNameFactory } from "../utils/eventNameFactory";
 import { useNuiEvent } from "./useNuiEvent";
 
-type UseNuiEventCallbackResponse<I, R> = [
-  (d?: I) => void,
-  { loading: boolean; error: unknown; response: R }
-];
+type UseNuiEventCallbackResponse<I, R> = [(d?: I) => void, { loading: boolean; error: unknown; response: R }];
 
 export const useNuiEventCallback = <I = unknown, R = unknown>(
   app: string,

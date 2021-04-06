@@ -44,9 +44,7 @@ export const NuiServiceProvider = ({
 }): JSX.Element => {
   const resourceRef = useRef<string>();
 
-  const eventListener = (event: {
-    data: { app: string; method: string; data: unknown };
-  }) => {
+  const eventListener = (event: { data: { app: string; method: string; data: unknown } }) => {
     const { app, method, data } = event.data;
     if (app && method) {
       window.dispatchEvent(
@@ -66,12 +64,9 @@ export const NuiServiceProvider = ({
     return fetch(...getParams(resource, event, data));
   }, []);
 
-  const sendAbortable = useCallback(
-    (event: string, data = {}): IAbortableFetch => {
-      return abortableFetch(...getParams(resource, event, data));
-    },
-    []
-  );
+  const sendAbortable = useCallback((event: string, data = {}): IAbortableFetch => {
+    return abortableFetch(...getParams(resource, event, data));
+  }, []);
 
   return (
     <NuiServiceContext.Provider

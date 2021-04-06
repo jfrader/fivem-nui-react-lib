@@ -1,10 +1,7 @@
 import { useContext } from "react";
 import { NuiServiceContext } from "../context/NuiServiceContext";
 
-export const useNuiRequest = (): Pick<
-  NuiServiceContext,
-  "send" | "sendAbortable"
-> => {
+export const useNuiRequest = (): Pick<NuiServiceContext, "send" | "sendAbortable"> => {
   const context = useContext(NuiServiceContext);
 
   if (!context) {

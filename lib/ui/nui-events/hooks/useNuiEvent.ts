@@ -15,11 +15,7 @@ function addEventListener<T extends EventTarget, E extends Event>(
  * @param method The specific `method` field that should be listened for.
  * @param handler The callback function that will handle data relayed by this hook
  **/
-export const useNuiEvent = <D = unknown>(
-  app: string,
-  method: string,
-  handler: (r: D) => void
-): void => {
+export const useNuiEvent = <D = unknown>(app: string, method: string, handler: (r: D) => void): void => {
   const savedHandler: MutableRefObject<(r: D) => void> = useRef();
 
   // When handler value changes set mutable ref to handler val

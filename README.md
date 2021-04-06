@@ -9,19 +9,23 @@ A (very opinionated) set of tools for using FiveM NUI events in React
 `npm install --save fivem-nui-react-lib`
 
 Use Provider
+
 ```js
-import { NuiServiceProvider } from 'fivem-nui-react-lib';
+import { NuiServiceProvider } from "fivem-nui-react-lib";
 
 function App() {
-  return <NuiServiceProvider resource="my-resource-name">
-    <div>This is my app</div>
-  </NuiServiceProvider>
+  return (
+    <NuiServiceProvider resource="my-resource-name">
+      <div>This is my app</div>
+    </NuiServiceProvider>
+  );
 }
 ```
 
 ### useNuiEvent
 
 This library receives the following schema on NUI events
+
 ```js
 {
   app: 'app-name', // can be always the same or change to differenciate events better on the UI
@@ -31,39 +35,44 @@ This library receives the following schema on NUI events
 ```
 
 Receive events from client and set your state
+
 ```js
 // UI
-import { useNuiEvent } from 'fivem-nui-react-lib';
+import { useNuiEvent } from "fivem-nui-react-lib";
 
 function MyComponent() {
   const [myState, setMyState] = useState(false);
-  useNuiEvent('app-name', 'method-name', setMyState);
+  useNuiEvent("app-name", "method-name", setMyState);
 }
 
 // CLIENT
-sendNuiMessage(JSON.stringify({
-  app: 'app-name',
-  method: 'method-name',
-  data: true, // myState will be set as true in this example
-}));
+sendNuiMessage(
+  JSON.stringify({
+    app: "app-name",
+    method: "method-name",
+    data: true, // myState will be set as true in this example
+  })
+);
 ```
+
 ### useNuiRequest
 
 Send requests to client
+
 ```js
 // UI
-import { useNuiRequest } from 'fivem-nui-react-lib';
+import { useNuiRequest } from "fivem-nui-react-lib";
 
 function MyComponent() {
   const { send } = useNuiRequest();
-  send('method-name', { myArgument: 'isAwesome' });
+  send("method-name", { myArgument: "isAwesome" });
 }
 
 // CLIENT
 RegisterNuiCallbackType(`__cfx_nui:myEvent`);
 on(`__cfx_nui:myEvent`, (data, cb) => {
   // Use the arguments
-  emitNet('myEvent', { input: data.myArgument });
+  emitNet("myEvent", { input: data.myArgument });
   // Callback to prevent errors
   cb();
 });
@@ -72,42 +81,47 @@ on(`__cfx_nui:myEvent`, (data, cb) => {
 ### useNuiEventCallback
 
 Make a callback to "myEvent" by sending back "myEventSuccess" or "myEventError" from the client
+
 ```js
 // UI
-import { useNuiEventCallback } from 'fivem-nui-react-lib'
+import { useNuiEventCallback } from "fivem-nui-react-lib";
 
 function MyComponent() {
   const [myState, setMyState] = useState(null);
   const [error, setError] = useState(null);
-  const [fetchMyMethod, { loading }] = useNuiEventCallback('app-name', 'myEvent', setMyState, setError);
+  const [fetchMyMethod, { loading }] = useNuiEventCallback("app-name", "myEvent", setMyState, setError);
 
   useEffect(() => {
     fetchMyMethod({ argument: 1 });
-  }, [fetchMyMethod])
+  }, [fetchMyMethod]);
 }
 
 // CLIENT
 RegisterNuiCallbackType(`__cfx_nui:myEvent`);
 on(`__cfx_nui:myEvent`, (data, cb) => {
   // emit some event to the server:
-  emitNet('myEvent', { input: data });
+  emitNet("myEvent", { input: data });
   // callback so you prevent errors
   cb();
 });
 
 // ... on success
-sendNuiMessage(JSON.stringify({
-  app: 'app-name',
-  method: 'myEventSuccess',
-  data: true,
-}))
+sendNuiMessage(
+  JSON.stringify({
+    app: "app-name",
+    method: "myEventSuccess",
+    data: true,
+  })
+);
 
 // ... on error
-sendNuiMessage(JSON.stringify({
-  app: 'app-name',
-  method: 'myEventError',
-  data: true,
-}))
+sendNuiMessage(
+  JSON.stringify({
+    app: "app-name",
+    method: "myEventError",
+    data: true,
+  })
+);
 ```
 
 The example above will request myEvent to the client and be in loading state until client sends back either myEventSuccess or myEventError.
@@ -122,7 +136,7 @@ Feel free to contribute and/or suggest changes.
 
 fivem-nui-react-lib - A set of tools for using FiveM NUI events in React
 
-Copyright (C) 2021  J Francisco Rader <franciscorader@gmail.com> (kidz)
+Copyright (C) 2021 J Francisco Rader <franciscorader@gmail.com> (kidz)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -131,8 +145,8 @@ the Free Software Foundation, either version 3 of the License, or
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+along with this program. If not, see <http://www.gnu.org/licenses/>.
