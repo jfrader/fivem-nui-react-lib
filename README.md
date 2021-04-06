@@ -1,6 +1,6 @@
 # fivem-nui-react-lib
 
-A set of tools NUI events in react
+A set of tools for using FiveM NUI events in React
 
 # usage
 
@@ -47,7 +47,7 @@ import { useNuiRequest } from 'fivem-nui-react-lib';
 
 function MyComponent() {
   const { send } = useNuiRequest();
-  send('app-name', 'method-name', setMyState);
+  send('method-name', setMyState);
 }
 ```
 
