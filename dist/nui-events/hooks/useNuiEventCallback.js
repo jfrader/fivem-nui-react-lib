@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { NuiServiceContext } from "../context/NuiServiceContext";
 import { eventNameFactory } from "../utils/eventNameFactory";
 import { useNuiEvent } from "./useNuiEvent";
-import { useNuiRequest } from "./useNuiRequest";
 export var useNuiEventCallback = function (app, method, handler, errHandler) {
-    var _a = useNuiRequest(), sendAbortable = _a.sendAbortable, callbackTimeout = _a.callbackTimeout;
+    var _a = useContext(NuiServiceContext), sendAbortable = _a.sendAbortable, callbackTimeout = _a.callbackTimeout;
     var fetchRef = useRef();
     var timeoutRef = useRef();
     // These are Refs to avoid re renders.

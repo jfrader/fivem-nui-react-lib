@@ -2,8 +2,9 @@ import { useContext } from "react";
 import { NuiServiceContext } from "../context/NuiServiceContext";
 export var useNuiRequest = function () {
     var context = useContext(NuiServiceContext);
-    if (!context.resource) {
+    if (!context) {
         throw new Error("fivem-nui-react-lib: useNuiRequest must be used inside NuiServiceProvider passing the resource prop");
     }
-    return context;
+    var send = context.send, sendAbortable = context.sendAbortable;
+    return { send: send, sendAbortable: sendAbortable };
 };
