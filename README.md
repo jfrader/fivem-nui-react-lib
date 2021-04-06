@@ -32,23 +32,41 @@ This library receives the following schema on NUI events
 
 Receive events from client and set your state
 ```js
+// UI
 import { useNuiEvent } from 'fivem-nui-react-lib';
 
 function MyComponent() {
-  const [myState, setMyState] = useState(null);
+  const [myState, setMyState] = useState(false);
   useNuiEvent('app-name', 'method-name', setMyState);
 }
+
+// CLIENT
+sendNuiMessage(JSON.stringify({
+  app: 'app-name',
+  method: 'method-name',
+  data: true, // myState will be set as true in this example
+}));
 ```
 ### useNuiRequest
 
 Send requests to client
 ```js
+// UI
 import { useNuiRequest } from 'fivem-nui-react-lib';
 
 function MyComponent() {
   const { send } = useNuiRequest();
-  send('method-name', setMyState);
+  send('method-name', { myArgument: 'isAwesome' });
 }
+
+// CLIENT
+RegisterNuiCallbackType(`__cfx_nui:myEvent`);
+on(`__cfx_nui:myEvent`, (data, cb) => {
+  // Use the arguments
+  emitNet('myEvent', { input: data.myArgument });
+  // Callback to prevent errors
+  cb();
+});
 ```
 
 ### useNuiEventCallback
