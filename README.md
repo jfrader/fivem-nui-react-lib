@@ -1,6 +1,6 @@
 # fivem-nui-react-lib
 
-A set of tools for using FiveM NUI events in React
+A (very opinionated) set of tools for using FiveM NUI events in React
 
 # usage
 
@@ -95,6 +95,10 @@ sendNuiMessage(JSON.stringify({
 The example above will request myEvent to the client and be in loading state until client sends back either myEventSuccess or myEventError.
 After one of those are received, the handlers will be executed (setMyState if success, setError if errored).
 If no event is received after the timeout time, it will throw as timeout error.
+
+# contributions
+
+Feel free to contribute and/or suggest changes.
 
 # license
 
