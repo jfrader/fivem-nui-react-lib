@@ -23,7 +23,8 @@
     "eslint": "^7.23.0",
     "eslint-plugin-react": "^7.23.1",
     "husky": "^6.0.0",
-    "lint-staged": "^10.5.4"
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1"
   },
   "dependencies": {
     "react": "^17.0.2",
@@ -31,7 +32,8 @@
     "typescript": "^4.1.2"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown",
-    "*.js,*.ts": "eslint --cache --fix"
+    "*.js,*.ts": "eslint --cache --fix",
+    "*.js": "eslint --cache --fix",
+    "*.{js,ts,css,md}": "prettier --write"
   }
 }
