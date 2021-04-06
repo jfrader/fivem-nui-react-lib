@@ -69,22 +69,23 @@ function MyComponent() {
 }
 
 // CLIENT
-RegisterNuiCallbackType(MessageEvents.SEND_MESSAGE);
+RegisterNuiCallbackType(`__cfx_nui:myEvent`);
 on(`__cfx_nui:myEvent`, (data, cb) => {
   // emit some event to the server:
-  emitNet('myEvent', { input: data })
+  emitNet('myEvent', { input: data });
+  // callback so you prevent errors
   cb();
 });
 
 // ... on success
-sendNuiMessage( JSON.stringify({
+sendNuiMessage(JSON.stringify({
   app: 'app-name',
   method: 'myEventSuccess',
   data: true,
 }))
 
 // ... on error
-sendNuiMessage( JSON.stringify({
+sendNuiMessage(JSON.stringify({
   app: 'app-name',
   method: 'myEventError',
   data: true,
@@ -97,7 +98,7 @@ If no event is received after the timeout time, it will throw as timeout error.
 
 # license
 
-fivem-nui-react-lib - A set of tools to handle NUI events in react
+fivem-nui-react-lib - A set of tools for using FiveM NUI events in React
 
 Copyright (C) 2021  J Francisco Rader <franciscorader@gmail.com> (kidz)
 
