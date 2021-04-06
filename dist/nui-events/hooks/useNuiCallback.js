@@ -5,6 +5,14 @@ var react_1 = require("react");
 var NuiContext_1 = require("../context/NuiContext");
 var eventNameFactory_1 = require("../utils/eventNameFactory");
 var useNuiEvent_1 = require("./useNuiEvent");
+/**
+ * Make a callback to "myEvent" by sending back "myEventSuccess" or "myEventError" from the client
+ * @param app [string] needs to be the same here and in the success and error response events
+ * @param method [string] the event name which is sent to client
+ * @param handler [function] receive the data sent by the client when success
+ * @param errHandler [function] receive the data sent by the client when errored
+ * @returns [fetchFn, { loading, error, response }]
+ */
 var useNuiCallback = function (app, method, handler, errHandler) {
   var _a = react_1.useContext(NuiContext_1.NuiContext),
     sendAbortable = _a.sendAbortable,
