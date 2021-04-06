@@ -11,13 +11,13 @@ A (very opinionated) set of tools for using FiveM NUI events in React
 Use Provider
 
 ```js
-import { NuiServiceProvider } from "fivem-nui-react-lib";
+import { NuiProvider } from "fivem-nui-react-lib";
 
 function App() {
   return (
-    <NuiServiceProvider resource="my-resource-name">
+    <NuiProvider resource="my-resource-name">
       <div>This is my app</div>
-    </NuiServiceProvider>
+    </NuiProvider>
   );
 }
 ```
@@ -78,18 +78,18 @@ on(`__cfx_nui:myEvent`, (data, cb) => {
 });
 ```
 
-### useNuiEventCallback
+### useNuiCallback
 
 Make a callback to "myEvent" by sending back "myEventSuccess" or "myEventError" from the client
 
 ```js
 // UI
-import { useNuiEventCallback } from "fivem-nui-react-lib";
+import { useNuiCallback } from "fivem-nui-react-lib";
 
 function MyComponent() {
   const [myState, setMyState] = useState(null);
   const [error, setError] = useState(null);
-  const [fetchMyMethod, { loading }] = useNuiEventCallback("app-name", "myEvent", setMyState, setError);
+  const [fetchMyMethod, { loading }] = useNuiCallback("app-name", "myEvent", setMyState, setError);
 
   useEffect(() => {
     fetchMyMethod({ argument: 1 });

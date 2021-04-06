@@ -137,11 +137,10 @@ var __generator =
     }
   };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NuiServiceProvider = void 0;
+exports.NuiProvider = void 0;
 var jsx_runtime_1 = require("react/jsx-runtime");
-console.warn("@ NuiServiceProvider is deprecated, please use NuiProvider instead");
 var react_1 = require("react");
-var NuiServiceContext_1 = require("../context/NuiServiceContext");
+var NuiContext_1 = require("../context/NuiContext");
 var eventNameFactory_1 = require("../utils/eventNameFactory");
 function abortableFetch(request, opts) {
   var controller = new AbortController();
@@ -166,7 +165,7 @@ function getParams(resource, event, data) {
   ];
 }
 var DEFAULT_TIMEOUT = 10000;
-var NuiServiceProvider = function (_a) {
+var NuiProvider = function (_a) {
   var resource = _a.resource,
     children = _a.children,
     timeout = _a.timeout;
@@ -207,7 +206,7 @@ var NuiServiceProvider = function (_a) {
     return abortableFetch.apply(void 0, getParams(resource, event, data));
   }, []);
   return jsx_runtime_1.jsx(
-    NuiServiceContext_1.NuiServiceContext.Provider,
+    NuiContext_1.NuiContext.Provider,
     __assign(
       {
         value: {
@@ -222,4 +221,4 @@ var NuiServiceProvider = function (_a) {
     void 0
   );
 };
-exports.NuiServiceProvider = NuiServiceProvider;
+exports.NuiProvider = NuiProvider;

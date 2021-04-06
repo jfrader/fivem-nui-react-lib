@@ -1,13 +1,11 @@
-console.warn("@ NuiServiceContext is deprecated, please use NuiContext instead");
-
 import { createContext } from "react";
 import { IAbortableFetch } from "../providers/NuiProvider";
 
-export interface NuiServiceContext {
+export interface NuiContext {
   resource: string;
   callbackTimeout: number;
   send: (e: string, data?: unknown) => Promise<Response>;
   sendAbortable: (e: string, data: unknown) => IAbortableFetch;
 }
 
-export const NuiServiceContext = createContext<NuiServiceContext>(null);
+export const NuiContext = createContext<NuiContext>(null);

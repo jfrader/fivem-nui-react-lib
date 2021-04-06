@@ -1,13 +1,15 @@
-import { useContext } from "react";
-import { NuiServiceContext } from "../context/NuiServiceContext";
-export var useNuiRequest = function () {
-  var context = useContext(NuiServiceContext);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.useNuiRequest = void 0;
+var react_1 = require("react");
+var NuiContext_1 = require("../context/NuiContext");
+var useNuiRequest = function () {
+  var context = react_1.useContext(NuiContext_1.NuiContext);
   if (!context) {
-    throw new Error(
-      "fivem-nui-react-lib: useNuiReques1 must be used inside NuiServiceProvider passing the resource prop"
-    );
+    throw new Error("fivem-nui-react-lib: useNuiRequest must be used inside NuiProvider passing the `resource` prop");
   }
   var send = context.send,
     sendAbortable = context.sendAbortable;
   return { send: send, sendAbortable: sendAbortable };
 };
+exports.useNuiRequest = useNuiRequest;

@@ -1,2 +1,2 @@
-import { NuiServiceContext } from "../context/NuiServiceContext";
-export declare const useNuiRequest: () => Pick<NuiServiceContext, "send" | "sendAbortable">;
+import { NuiContext } from "../context/NuiContext";
+export declare const useNuiRequest: () => Pick<NuiContext, "send" | "sendAbortable">;

@@ -1,10 +1,12 @@
-console.warn("@ NuiServiceProvider is deprecated, please use NuiProvider instead");
-
 import React from "react";
 import { useCallback, useEffect, useRef } from "react";
-import { NuiServiceContext } from "../context/NuiServiceContext";
+import { NuiContext } from "../context/NuiContext";
 import { eventNameFactory } from "../utils/eventNameFactory";
-import { IAbortableFetch } from "./NuiProvider";
+
+export interface IAbortableFetch {
+  abort: () => void;
+  promise: Promise<Response>;
+}
 
 function abortableFetch(request, opts): IAbortableFetch {
   const controller = new AbortController();
@@ -31,7 +33,7 @@ function getParams(resource, event, data): [RequestInfo, RequestInit] {
 
 const DEFAULT_TIMEOUT = 10000;
 
-export const NuiServiceProvider = ({
+export const NuiProvider = ({
   resource,
   children,
   timeout,
@@ -40,7 +42,6 @@ export const NuiServiceProvider = ({
   resource: string;
   children: JSX.Element;
 }): JSX.Element => {
-
   const resourceRef = useRef<string>();
 
   const eventListener = (event: { data: { app: string; method: string; data: unknown } }) => {
@@ -68,7 +69,7 @@ export const NuiServiceProvider = ({
   }, []);
 
   return (
-    <NuiServiceContext.Provider
+    <NuiContext.Provider
       value={{
         resource: resourceRef.current,
         send,
@@ -77,6 +78,6 @@ export const NuiServiceProvider = ({
       }}
     >
       {children}
-    </NuiServiceContext.Provider>
+    </NuiContext.Provider>
   );
 };

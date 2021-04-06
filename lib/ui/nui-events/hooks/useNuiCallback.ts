@@ -1,19 +1,17 @@
-console.warn("@ useNuiEventCallback is deprecated, please use useNuiCallback instead");
-
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { NuiContext } from "../context/NuiContext";
 import { IAbortableFetch } from "../providers/NuiProvider";
 import { eventNameFactory } from "../utils/eventNameFactory";
 import { useNuiEvent } from "./useNuiEvent";
 
-type UseNuiEventCallbackResponse<I, R> = [(d?: I) => void, { loading: boolean; error: unknown; response: R }];
+type UseNuiCallbackResponse<I, R> = [(d?: I) => void, { loading: boolean; error: unknown; response: R }];
 
-export const useNuiEventCallback = <I = unknown, R = unknown>(
+export const useNuiCallback = <I = unknown, R = unknown>(
   app: string,
   method: string,
   handler?: (res: R) => void,
   errHandler?: (err: unknown) => void
-): UseNuiEventCallbackResponse<I, R> => {
+): UseNuiCallbackResponse<I, R> => {
   const { sendAbortable, callbackTimeout } = useContext(NuiContext);
 
   const fetchRef = useRef<IAbortableFetch>();

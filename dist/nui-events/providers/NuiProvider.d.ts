@@ -1,5 +1,9 @@
 /// <reference types="react" />
-export declare const NuiServiceProvider: ({
+export interface IAbortableFetch {
+  abort: () => void;
+  promise: Promise<Response>;
+}
+export declare const NuiProvider: ({
   resource,
   children,
   timeout,
