@@ -1,34 +1,31 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.useNuiCallback = void 0;
-var react_1 = require("react");
-var NuiContext_1 = require("../context/NuiContext");
-var eventNameFactory_1 = require("../utils/eventNameFactory");
-var useNuiEvent_1 = require("./useNuiEvent");
-var useNuiCallback = function (app, method, handler, errHandler) {
-  var _a = react_1.useContext(NuiContext_1.NuiContext),
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { NuiContext } from "../context/NuiContext";
+import { eventNameFactory } from "../utils/eventNameFactory";
+import { useNuiEvent } from "./useNuiEvent";
+export var useNuiCallback = function (app, method, handler, errHandler) {
+  var _a = useContext(NuiContext),
     sendAbortable = _a.sendAbortable,
     callbackTimeout = _a.callbackTimeout;
-  var fetchRef = react_1.useRef();
-  var timeoutRef = react_1.useRef();
+  var fetchRef = useRef();
+  var timeoutRef = useRef();
   // These are Refs to avoid re renders.
   // We dont care if "app" and "method" arguments change.
-  var eventNameRef = react_1.useRef(eventNameFactory_1.eventNameFactory(app, method));
-  var methodNameRef = react_1.useRef(method);
-  var appNameRef = react_1.useRef(app);
-  var _b = react_1.useState(false),
+  var eventNameRef = useRef(eventNameFactory(app, method));
+  var methodNameRef = useRef(method);
+  var appNameRef = useRef(app);
+  var _b = useState(false),
     timedOut = _b[0],
     setTimedOut = _b[1];
-  var _c = react_1.useState(false),
+  var _c = useState(false),
     loading = _c[0],
     setLoading = _c[1];
-  var _d = react_1.useState(null),
+  var _d = useState(null),
     error = _d[0],
     setError = _d[1];
-  var _e = react_1.useState(null),
+  var _e = useState(null),
     response = _e[0],
     setResponse = _e[1];
-  var onSuccess = react_1.useCallback(
+  var onSuccess = useCallback(
     function (data) {
       if (!loading) {
         return;
@@ -47,7 +44,7 @@ var useNuiCallback = function (app, method, handler, errHandler) {
     },
     [handler, timedOut, loading]
   );
-  var onError = react_1.useCallback(
+  var onError = useCallback(
     function (err) {
       // If we receive error event, clear timeout
       timeoutRef.current && clearTimeout(timeoutRef.current);
@@ -60,7 +57,7 @@ var useNuiCallback = function (app, method, handler, errHandler) {
     [errHandler]
   );
   // React to loading change and starting timeout timer.
-  react_1.useEffect(
+  useEffect(
     function () {
       if (loading && !timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -84,10 +81,10 @@ var useNuiCallback = function (app, method, handler, errHandler) {
     [loading, onError]
   );
   // Handle the success and error events for this method
-  useNuiEvent_1.useNuiEvent(appNameRef.current, methodNameRef.current + "Success", onSuccess);
-  useNuiEvent_1.useNuiEvent(appNameRef.current, methodNameRef.current + "Error", onError);
+  useNuiEvent(appNameRef.current, methodNameRef.current + "Success", onSuccess);
+  useNuiEvent(appNameRef.current, methodNameRef.current + "Error", onError);
   // Only fetch if we are not loading/waiting the events.
-  var fetch = react_1.useCallback(function (data) {
+  var fetch = useCallback(function (data) {
     setLoading(function (curr) {
       if (!curr) {
         fetchRef.current = sendAbortable(methodNameRef.current, data);
@@ -98,4 +95,3 @@ var useNuiCallback = function (app, method, handler, errHandler) {
   }, []);
   return [fetch, { loading: loading, response: response, error: error }];
 };
-exports.useNuiCallback = useNuiCallback;

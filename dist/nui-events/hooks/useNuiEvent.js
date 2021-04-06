@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.useNuiEvent = void 0;
-var react_1 = require("react");
-var eventNameFactory_1 = require("../utils/eventNameFactory");
+import { useEffect, useRef } from "react";
+import { eventNameFactory } from "../utils/eventNameFactory";
 function addEventListener(element, type, handler) {
   element.addEventListener(type, handler);
 }
@@ -12,19 +9,19 @@ function addEventListener(element, type, handler) {
  * @param method The specific `method` field that should be listened for.
  * @param handler The callback function that will handle data relayed by this hook
  **/
-var useNuiEvent = function (app, method, handler) {
-  var savedHandler = react_1.useRef();
+export var useNuiEvent = function (app, method, handler) {
+  var savedHandler = useRef();
   // When handler value changes set mutable ref to handler val
-  react_1.useEffect(
+  useEffect(
     function () {
       savedHandler.current = handler;
     },
     [handler]
   );
   // Will run every rerender
-  react_1.useEffect(
+  useEffect(
     function () {
-      var eventName = eventNameFactory_1.eventNameFactory(app, method);
+      var eventName = eventNameFactory(app, method);
       var eventListener = function (event) {
         if (savedHandler.current && savedHandler.current.call) {
           var data = event.data;
@@ -41,4 +38,3 @@ var useNuiEvent = function (app, method, handler) {
     [app, method]
   );
 };
-exports.useNuiEvent = useNuiEvent;
