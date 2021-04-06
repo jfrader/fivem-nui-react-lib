@@ -10,6 +10,7 @@
  * @param app {string} The app name which the client will emit to
  * @param method {string} The specific `method` field that should be listened for.
  * @param handler {function} The callback function that will handle data received from the client
+ * @returns {void} void
  * @example
  * const [dataState, setDataState] = useState<boolean>();
  * useNuiEvent<boolean>("appname", "methodname", setDataState);
