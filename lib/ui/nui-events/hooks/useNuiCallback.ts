@@ -8,11 +8,11 @@ type UseNuiCallbackResponse<I, R> = [(d?: I) => void, { loading: boolean; error:
 
 /**
  * Make a callback to "myEvent" by sending back "myEventSuccess" or "myEventError" from the client
- * @param app [string] needs to be the same here and in the success and error response events
- * @param method [string] the event name which is sent to client
- * @param handler [function] receive the data sent by the client when success
- * @param errHandler [function] receive the data sent by the client when errored
- * @returns [fetchFn, { loading, error, response }]
+ * @param app {string} needs to be the same here and in the success and error response events
+ * @param method {string} the event name which is sent to client
+ * @param handler {function} receive the data sent by the client when success
+ * @param errHandler {function} receive the data sent by the client when errored
+ * @returns {[fetchFn, { loading, error, response }]}
  */
 export const useNuiCallback = <I = unknown, R = unknown>(
   app: string,

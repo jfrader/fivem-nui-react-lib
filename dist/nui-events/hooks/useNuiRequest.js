@@ -5,7 +5,7 @@ var react_1 = require("react");
 var NuiContext_1 = require("../context/NuiContext");
 /**
  * Send requests to the client
- * @returns { send: (method: string) => void, sendAbortable: (method: string) => { abort: () => void, promise: Promise } }
+ * @returns {{ send: function, sendAbortable: function }}
  */
 var useNuiRequest = function () {
   var context = react_1.useContext(NuiContext_1.NuiContext);
