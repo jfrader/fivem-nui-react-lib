@@ -69,8 +69,9 @@ function getParams(resource, event, data) {
         },
     ];
 }
+var DEFAULT_TIMEOUT = 10000;
 export var NuiServiceProvider = function (_a) {
-    var resource = _a.resource, children = _a.children;
+    var resource = _a.resource, children = _a.children, timeout = _a.timeout;
     var resourceRef = useRef();
     var eventListener = function (event) {
         var _a = event.data, app = _a.app, method = _a.method, data = _a.data;
@@ -96,5 +97,10 @@ export var NuiServiceProvider = function (_a) {
         if (data === void 0) { data = {}; }
         return abortableFetch.apply(void 0, getParams(resource, event, data));
     }, []);
-    return (_jsx(NuiServiceContext.Provider, __assign({ value: { resource: resourceRef.current, send: send, sendAbortable: sendAbortable } }, { children: children }), void 0));
+    return (_jsx(NuiServiceContext.Provider, __assign({ value: {
+            resource: resourceRef.current,
+            send: send,
+            sendAbortable: sendAbortable,
+            callbackTimeout: timeout || DEFAULT_TIMEOUT,
+        } }, { children: children }), void 0));
 };

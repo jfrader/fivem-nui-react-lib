@@ -3,7 +3,7 @@ import { eventNameFactory } from "../utils/eventNameFactory";
 import { useNuiEvent } from "./useNuiEvent";
 import { useNuiRequest } from "./useNuiRequest";
 export var useNuiEventCallback = function (app, method, handler, errHandler) {
-    var sendAbortable = useNuiRequest().sendAbortable;
+    var _a = useNuiRequest(), sendAbortable = _a.sendAbortable, callbackTimeout = _a.callbackTimeout;
     var fetchRef = useRef();
     var timeoutRef = useRef();
     // These are Refs to avoid re renders.
@@ -11,15 +11,15 @@ export var useNuiEventCallback = function (app, method, handler, errHandler) {
     var eventNameRef = useRef(eventNameFactory(app, method));
     var methodNameRef = useRef(method);
     var appNameRef = useRef(app);
-    var _a = useState(false), timedOut = _a[0], setTimedOut = _a[1];
-    var _b = useState(false), loading = _b[0], setLoading = _b[1];
-    var _c = useState(null), error = _c[0], setError = _c[1];
-    var _d = useState(null), response = _d[0], setResponse = _d[1];
+    var _b = useState(false), timedOut = _b[0], setTimedOut = _b[1];
+    var _c = useState(false), loading = _c[0], setLoading = _c[1];
+    var _d = useState(null), error = _d[0], setError = _d[1];
+    var _e = useState(null), response = _e[0], setResponse = _e[1];
     var onSuccess = useCallback(function (data) {
         if (!loading) {
             return;
         }
-        // If we receive eventNameSuccess event, clear timeout
+        // If we receive success event, clear timeout
         timeoutRef.current && clearTimeout(timeoutRef.current);
         // If already timed out, don't do shit :)
         if (timedOut) {
@@ -32,24 +32,21 @@ export var useNuiEventCallback = function (app, method, handler, errHandler) {
         handler === null || handler === void 0 ? void 0 : handler(data);
     }, [handler, timedOut, loading]);
     var onError = useCallback(function (err) {
-        if (!loading) {
-            return;
-        }
-        // If we receive eventNameSuccess event, clear timeout
+        // If we receive error event, clear timeout
         timeoutRef.current && clearTimeout(timeoutRef.current);
         // Set new state after error event received
         setError(err);
         setResponse(null);
         setLoading(false);
         errHandler === null || errHandler === void 0 ? void 0 : errHandler(err);
-    }, [errHandler, timedOut, loading]);
+    }, [errHandler]);
     // React to loading change and starting timeout timer.
     useEffect(function () {
         if (loading && !timeoutRef.current) {
             clearTimeout(timeoutRef.current);
             timeoutRef.current = setTimeout(function () {
                 setTimedOut(true);
-                onError(new Error(eventNameRef.current + " NUI Event Callback timed out after 10000 seconds"));
+                onError(new Error("fivem-nui-react-lib: \"" + eventNameRef.current + "\" event callback timed out after " + callbackTimeout + " milliseconds"));
                 fetchRef.current && fetchRef.current.abort();
                 timeoutRef.current = undefined;
                 fetchRef.current = undefined;
