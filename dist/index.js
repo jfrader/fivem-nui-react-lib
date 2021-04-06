@@ -26,7 +26,6 @@ __exportStar(require("./nui-events/hooks/useNuiEvent"), exports);
 __exportStar(require("./nui-events/hooks/useNuiEventCallback"), exports);
 __exportStar(require("./nui-events/hooks/useNuiCallback"), exports);
 __exportStar(require("./nui-events/hooks/useNuiRequest"), exports);
-__exportStar(require("./nui-events/context/NuiServiceContext"), exports);
 __exportStar(require("./nui-events/providers/NuiServiceProvider"), exports);
 __exportStar(require("./nui-events/context/NuiContext"), exports);
 __exportStar(require("./nui-events/providers/NuiProvider"), exports);

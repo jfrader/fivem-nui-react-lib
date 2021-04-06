@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.useNuiEventCallback = void 0;
-console.warn("@ useNuiEventCallback is deprecated, please use useNuiCallback instead");
 var react_1 = require("react");
 var NuiContext_1 = require("../context/NuiContext");
 var eventNameFactory_1 = require("../utils/eventNameFactory");
 var useNuiEvent_1 = require("./useNuiEvent");
 var useNuiEventCallback = function (app, method, handler, errHandler) {
+  console.warn("@ useNuiEventCallback is deprecated, please use useNuiCallback instead");
   var _a = react_1.useContext(NuiContext_1.NuiContext),
     sendAbortable = _a.sendAbortable,
     callbackTimeout = _a.callbackTimeout;
