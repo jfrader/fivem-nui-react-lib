@@ -1,3 +1,4 @@
+"use strict";
 var __assign =
   (this && this.__assign) ||
   function () {
@@ -135,10 +136,12 @@ var __generator =
       return { value: op[0] ? op[1] : void 0, done: true };
     }
   };
-import { jsx as _jsx } from "react/jsx-runtime";
-import { useCallback, useEffect, useRef } from "react";
-import { NuiContext } from "../context/NuiContext";
-import { eventNameFactory } from "../utils/eventNameFactory";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NuiProvider = void 0;
+var jsx_runtime_1 = require("react/jsx-runtime");
+var react_1 = require("react");
+var NuiContext_1 = require("../context/NuiContext");
+var eventNameFactory_1 = require("../utils/eventNameFactory");
 function abortableFetch(request, opts) {
   var controller = new AbortController();
   var signal = controller.signal;
@@ -162,11 +165,11 @@ function getParams(resource, event, data) {
   ];
 }
 var DEFAULT_TIMEOUT = 10000;
-export var NuiProvider = function (_a) {
+var NuiProvider = function (_a) {
   var resource = _a.resource,
     children = _a.children,
     timeout = _a.timeout;
-  var resourceRef = useRef();
+  var resourceRef = react_1.useRef();
   var eventListener = function (event) {
     var _a = event.data,
       app = _a.app,
@@ -174,19 +177,19 @@ export var NuiProvider = function (_a) {
       data = _a.data;
     if (app && method) {
       window.dispatchEvent(
-        new MessageEvent(eventNameFactory(app, method), {
+        new MessageEvent(eventNameFactory_1.eventNameFactory(app, method), {
           data: data,
         })
       );
     }
   };
-  useEffect(function () {
+  react_1.useEffect(function () {
     window.addEventListener("message", eventListener);
     return function () {
       return window.removeEventListener("message", eventListener);
     };
   }, []);
-  var send = useCallback(function (event, data) {
+  var send = react_1.useCallback(function (event, data) {
     if (data === void 0) {
       data = {};
     }
@@ -196,14 +199,14 @@ export var NuiProvider = function (_a) {
       });
     });
   }, []);
-  var sendAbortable = useCallback(function (event, data) {
+  var sendAbortable = react_1.useCallback(function (event, data) {
     if (data === void 0) {
       data = {};
     }
     return abortableFetch.apply(void 0, getParams(resource, event, data));
   }, []);
-  return _jsx(
-    NuiContext.Provider,
+  return jsx_runtime_1.jsx(
+    NuiContext_1.NuiContext.Provider,
     __assign(
       {
         value: {
@@ -218,3 +221,4 @@ export var NuiProvider = function (_a) {
     void 0
   );
 };
+exports.NuiProvider = NuiProvider;

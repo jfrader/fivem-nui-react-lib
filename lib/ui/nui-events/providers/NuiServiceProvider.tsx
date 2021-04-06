@@ -1,8 +1,5 @@
-console.warn("@ NuiServiceProvider is deprecated, please use NuiProvider instead");
-
-import React from "react";
-import { useCallback, useEffect, useRef } from "react";
-import { NuiServiceContext } from "../context/NuiServiceContext";
+import React, { useCallback, useEffect, useRef } from "react";
+import { NuiContext } from "../context/NuiContext";
 import { eventNameFactory } from "../utils/eventNameFactory";
 import { IAbortableFetch } from "./NuiProvider";
 
@@ -40,6 +37,7 @@ export const NuiServiceProvider = ({
   resource: string;
   children: JSX.Element;
 }): JSX.Element => {
+  console.warn("@ NuiServiceProvider is deprecated, please use NuiProvider instead");
 
   const resourceRef = useRef<string>();
 
@@ -68,7 +66,7 @@ export const NuiServiceProvider = ({
   }, []);
 
   return (
-    <NuiServiceContext.Provider
+    <NuiContext.Provider
       value={{
         resource: resourceRef.current,
         send,
@@ -77,6 +75,6 @@ export const NuiServiceProvider = ({
       }}
     >
       {children}
-    </NuiServiceContext.Provider>
+    </NuiContext.Provider>
   );
 };

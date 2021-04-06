@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NuiServiceContext = void 0;
 console.warn("@ NuiServiceContext is deprecated, please use NuiContext instead");
-import { createContext } from "react";
-export var NuiServiceContext = createContext(null);
+var react_1 = require("react");
+exports.NuiServiceContext = react_1.createContext(null);
