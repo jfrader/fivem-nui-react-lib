@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { NuiServiceContext } from "../context/NuiServiceContext";
 import { IAbortableFetch } from "../providers/NuiServiceProvider";
 import { eventNameFactory } from "../utils/eventNameFactory";
 import { useNuiEvent } from "./useNuiEvent";
-import { useNuiRequest } from "./useNuiRequest";
 
 type UseNuiEventCallbackResponse<I, R> = [
   (d?: I) => void,
@@ -15,7 +15,7 @@ export const useNuiEventCallback = <I = unknown, R = unknown>(
   handler?: (res: R) => void,
   errHandler?: Function
 ): UseNuiEventCallbackResponse<I, R> => {
-  const { sendAbortable, callbackTimeout } = useNuiRequest();
+  const { sendAbortable, callbackTimeout } = useContext(NuiServiceContext);
 
   const fetchRef = useRef<IAbortableFetch>();
   const timeoutRef = useRef<NodeJS.Timeout>();

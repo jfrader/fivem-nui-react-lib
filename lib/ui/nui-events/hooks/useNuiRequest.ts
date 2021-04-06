@@ -10,5 +10,6 @@ export const useNuiRequest = () => {
     );
   }
 
-  return context;
+  const { send, sendAbortable } = context;
+  return { send, sendAbortable };
 };
