@@ -1,6 +1,6 @@
 {
   "name": "fivem-nui-react-lib",
-  "version": "2.1.10",
+  "version": "2.1.11",
   "description": "A set of tools for using FiveM NUI events in React",
   "main": "dist/index.js",
   "scripts": {
@@ -38,5 +38,15 @@
   "lint-staged": {
     "*.js,*.ts": "yarn lint",
     "*.{js,ts,css,md}": "prettier --write"
-  }
+  },
+  "keywords": [
+    "fivem",
+    "gta5",
+    "gtarp",
+    "nui",
+    "react",
+    "lib",
+    "library",
+    "events"
+  ]
 }
