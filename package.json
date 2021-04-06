@@ -1,7 +1,9 @@
 {
   "name": "fivem-nui-react-lib",
-  "version": "2.1.11",
   "description": "A set of tools for using FiveM NUI events in React",
+  "author": "J Francisco Rader <franciscorader@gmail.com> (kidz)",
+  "license": "GPL-3.0-or-later",
+  "version": "2.1.11",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -9,8 +11,6 @@
     "prepare": "yarn lint && yarn build && husky install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "J Francisco Rader <franciscorader@gmail.com> (kidz)",
-  "license": "GPL-3.0-or-later",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jfrader/fivem-nui-react-lib.git"
