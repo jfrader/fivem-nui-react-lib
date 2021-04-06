@@ -1,3 +1,4 @@
+import React from "react";
 import { useCallback, useEffect, useRef } from "react";
 import { NuiServiceContext } from "../context/NuiServiceContext";
 import { eventNameFactory } from "../utils/eventNameFactory";
@@ -40,10 +41,12 @@ export const NuiServiceProvider = ({
   timeout?: number;
   resource: string;
   children: JSX.Element;
-}) => {
+}): JSX.Element => {
   const resourceRef = useRef<string>();
 
-  const eventListener = (event: any) => {
+  const eventListener = (event: {
+    data: { app: string; method: string; data: unknown };
+  }) => {
     const { app, method, data } = event.data;
     if (app && method) {
       window.dispatchEvent(

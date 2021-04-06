@@ -1,1 +1,2 @@
-export const eventNameFactory = (app: string, method: string) => `${app}:${method}`;
+export const eventNameFactory = (app: string, method: string): string =>
+  `${app}:${method}`;

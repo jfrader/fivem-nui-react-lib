@@ -2,9 +2,9 @@ declare type UseNuiEventCallbackResponse<I, R> = [
     (d?: I) => void,
     {
         loading: boolean;
-        error: any;
+        error: unknown;
         response: R;
     }
 ];
-export declare const useNuiEventCallback: <I = unknown, R = unknown>(app: string, method: string, handler?: (res: R) => void, errHandler?: Function) => UseNuiEventCallbackResponse<I, R>;
+export declare const useNuiEventCallback: <I = unknown, R = unknown>(app: string, method: string, handler?: (res: R) => void, errHandler?: (err: unknown) => void) => UseNuiEventCallbackResponse<I, R>;
 export {};

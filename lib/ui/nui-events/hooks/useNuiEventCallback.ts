@@ -6,14 +6,14 @@ import { useNuiEvent } from "./useNuiEvent";
 
 type UseNuiEventCallbackResponse<I, R> = [
   (d?: I) => void,
-  { loading: boolean; error: any; response: R }
+  { loading: boolean; error: unknown; response: R }
 ];
 
 export const useNuiEventCallback = <I = unknown, R = unknown>(
   app: string,
   method: string,
   handler?: (res: R) => void,
-  errHandler?: Function
+  errHandler?: (err: unknown) => void
 ): UseNuiEventCallbackResponse<I, R> => {
   const { sendAbortable, callbackTimeout } = useContext(NuiServiceContext);
 
@@ -28,7 +28,7 @@ export const useNuiEventCallback = <I = unknown, R = unknown>(
 
   const [timedOut, setTimedOut] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<any>(null);
+  const [error, setError] = useState<unknown>(null);
   const [response, setResponse] = useState<R>(null);
 
   const onSuccess = useCallback(
@@ -52,7 +52,7 @@ export const useNuiEventCallback = <I = unknown, R = unknown>(
   );
 
   const onError = useCallback(
-    (err: any) => {
+    (err: unknown) => {
       // If we receive error event, clear timeout
       timeoutRef.current && clearTimeout(timeoutRef.current);
       // Set new state after error event received
@@ -61,7 +61,7 @@ export const useNuiEventCallback = <I = unknown, R = unknown>(
       setLoading(false);
       errHandler?.(err);
     },
-    [errHandler],
+    [errHandler]
   );
 
   // React to loading change and starting timeout timer.

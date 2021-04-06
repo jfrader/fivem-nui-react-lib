@@ -4,4 +4,4 @@
  * @param method The specific `method` field that should be listened for.
  * @param handler The callback function that will handle data relayed by this hook
  **/
-export declare const useNuiEvent: (app: string, method: string, handler: Function) => void;
+export declare const useNuiEvent: <D = unknown>(app: string, method: string, handler: (r: D) => void) => void;
