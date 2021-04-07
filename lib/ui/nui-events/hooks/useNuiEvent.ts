@@ -34,7 +34,6 @@ export const useNuiEvent = <D = unknown>(app: string, method: string, handler: (
     savedHandler.current = handler;
   }, [handler]);
 
-  // Will run every rerender
   useEffect(() => {
     const eventName = eventNameFactory(app, method);
     const eventListener = (event) => {
