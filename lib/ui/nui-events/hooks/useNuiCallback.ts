@@ -88,7 +88,7 @@ export const useNuiCallback = <I = unknown, R = unknown>(
         fetchRef.current && fetchRef.current.abort();
         timeoutRef.current = undefined;
         fetchRef.current = undefined;
-      }, 10000);
+      }, callbackTimeout);
     }
   }, [loading, onError]);
 

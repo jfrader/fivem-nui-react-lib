@@ -170,6 +170,7 @@ var NuiProvider = function (_a) {
     children = _a.children,
     timeout = _a.timeout;
   var resourceRef = react_1.useRef();
+  var timeoutRef = react_1.useRef(timeout || DEFAULT_TIMEOUT);
   var eventListener = function (event) {
     var _a = event.data,
       app = _a.app,
@@ -210,10 +211,10 @@ var NuiProvider = function (_a) {
     __assign(
       {
         value: {
-          resource: resourceRef.current,
           send: send,
           sendAbortable: sendAbortable,
-          callbackTimeout: timeout || DEFAULT_TIMEOUT,
+          resource: resourceRef.current,
+          callbackTimeout: timeoutRef.current,
         },
       },
       { children: children }

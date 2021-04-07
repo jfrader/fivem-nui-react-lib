@@ -91,7 +91,7 @@ var useNuiCallback = function (app, method, handler, errHandler) {
           fetchRef.current && fetchRef.current.abort();
           timeoutRef.current = undefined;
           fetchRef.current = undefined;
-        }, 10000);
+        }, callbackTimeout);
       }
     },
     [loading, onError]

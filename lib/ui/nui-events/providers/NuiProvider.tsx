@@ -42,6 +42,7 @@ export const NuiProvider = ({
   children: JSX.Element;
 }): JSX.Element => {
   const resourceRef = useRef<string>();
+  const timeoutRef = useRef<number>(timeout || DEFAULT_TIMEOUT);
 
   const eventListener = (event: { data: { app: string; method: string; data: unknown } }) => {
     const { app, method, data } = event.data;
@@ -70,10 +71,10 @@ export const NuiProvider = ({
   return (
     <NuiContext.Provider
       value={{
-        resource: resourceRef.current,
         send,
         sendAbortable,
-        callbackTimeout: timeout || DEFAULT_TIMEOUT,
+        resource: resourceRef.current,
+        callbackTimeout: timeoutRef.current,
       }}
     >
       {children}
