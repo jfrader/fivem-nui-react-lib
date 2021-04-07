@@ -2,6 +2,10 @@
 
 A (very opinionated) set of tools for using FiveM NUI events in React
 
+# example
+
+https://github.com/jfrader/fivem-nui-react-boilerplate
+
 # usage
 
 ### install
