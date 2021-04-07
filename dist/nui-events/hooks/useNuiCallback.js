@@ -79,26 +79,29 @@ var useNuiCallback = function (app, method, handler, errHandler) {
   var fetch = react_1.useCallback(function (data, options) {
     setLoading(function (curr) {
       if (!curr) {
+        setTimedOut(false);
         setError(null);
         setResponse(null);
         fetchRef.current = sendAbortable(methodNameRef.current, data);
         var timeoutTime_1 = (options && options.timeout) || callbackTimeout;
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = setTimeout(function () {
-          setTimedOut(true);
-          onError(
-            new Error(
-              'fivem-nui-react-lib: "' +
-                eventNameRef.current +
-                '" event callback timed out after ' +
-                timeoutTime_1 +
-                " milliseconds"
-            )
-          );
-          fetchRef.current && fetchRef.current.abort();
-          timeoutRef.current = undefined;
-          fetchRef.current = undefined;
-        }, timeoutTime_1);
+        if (timeoutTime_1) {
+          clearTimeout(timeoutRef.current);
+          timeoutRef.current = setTimeout(function () {
+            setTimedOut(true);
+            onError(
+              new Error(
+                'fivem-nui-react-lib: "' +
+                  eventNameRef.current +
+                  '" event callback timed out after ' +
+                  timeoutTime_1 +
+                  " milliseconds"
+              )
+            );
+            fetchRef.current && fetchRef.current.abort();
+            timeoutRef.current = undefined;
+            fetchRef.current = undefined;
+          }, timeoutTime_1);
+        }
         return true;
       }
       return curr;

@@ -5,7 +5,7 @@ import { eventNameFactory } from "../utils/eventNameFactory";
 import { useNuiEvent } from "./useNuiEvent";
 
 type UseNuiCallbackFetchOptions = {
-  timeout: number;
+  timeout: number | false;
 };
 
 type UseNuiCallbackFetch<I> = (input?: I, options?: UseNuiCallbackFetchOptions) => void;
@@ -88,24 +88,27 @@ export const useNuiCallback = <I = unknown, R = unknown>(
   const fetch = useCallback((data?: I, options?: UseNuiCallbackFetchOptions) => {
     setLoading((curr) => {
       if (!curr) {
+        setTimedOut(false);
         setError(null);
         setResponse(null);
         fetchRef.current = sendAbortable(methodNameRef.current, data);
 
         const timeoutTime = (options && options.timeout) || callbackTimeout;
 
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = setTimeout(() => {
-          setTimedOut(true);
-          onError(
-            new Error(
-              `fivem-nui-react-lib: "${eventNameRef.current}" event callback timed out after ${timeoutTime} milliseconds`
-            )
-          );
-          fetchRef.current && fetchRef.current.abort();
-          timeoutRef.current = undefined;
-          fetchRef.current = undefined;
-        }, timeoutTime);
+        if (timeoutTime) {
+          clearTimeout(timeoutRef.current);
+          timeoutRef.current = setTimeout(() => {
+            setTimedOut(true);
+            onError(
+              new Error(
+                `fivem-nui-react-lib: "${eventNameRef.current}" event callback timed out after ${timeoutTime} milliseconds`
+              )
+            );
+            fetchRef.current && fetchRef.current.abort();
+            timeoutRef.current = undefined;
+            fetchRef.current = undefined;
+          }, timeoutTime);
+        }
 
         return true;
       }

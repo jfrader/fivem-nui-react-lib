@@ -8,7 +8,7 @@ export declare const NuiProvider: ({
   children,
   timeout,
 }: {
-  timeout?: number;
+  timeout?: number | false;
   resource: string;
   children: JSX.Element;
 }) => JSX.Element;
