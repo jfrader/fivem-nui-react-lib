@@ -32,7 +32,6 @@ var useNuiEvent = function (app, method, handler) {
     },
     [handler]
   );
-  // Will run every rerender
   react_1.useEffect(
     function () {
       var eventName = eventNameFactory_1.eventNameFactory(app, method);
