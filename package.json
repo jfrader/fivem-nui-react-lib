@@ -3,7 +3,7 @@
   "description": "A set of tools for using FiveM NUI events in React",
   "author": "J Francisco Rader <franciscorader@gmail.com> (kidz)",
   "license": "GPL-3.0-or-later",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "main": "dist/index.js",
   "scripts": {
     "build": "rimraf dist && tsc",

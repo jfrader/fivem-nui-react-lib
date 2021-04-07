@@ -169,7 +169,7 @@ var NuiProvider = function (_a) {
   var resource = _a.resource,
     children = _a.children,
     timeout = _a.timeout;
-  var resourceRef = react_1.useRef();
+  var resourceRef = react_1.useRef(resource || "");
   var timeoutRef = react_1.useRef(timeout || DEFAULT_TIMEOUT);
   var eventListener = function (event) {
     var _a = event.data,
@@ -196,7 +196,7 @@ var NuiProvider = function (_a) {
     }
     return __awaiter(void 0, void 0, void 0, function () {
       return __generator(this, function (_a) {
-        return [2 /*return*/, fetch.apply(void 0, getParams(resource, event, data))];
+        return [2 /*return*/, fetch.apply(void 0, getParams(resourceRef.current, event, data))];
       });
     });
   }, []);
@@ -204,7 +204,7 @@ var NuiProvider = function (_a) {
     if (data === void 0) {
       data = {};
     }
-    return abortableFetch.apply(void 0, getParams(resource, event, data));
+    return abortableFetch.apply(void 0, getParams(resourceRef.current, event, data));
   }, []);
   return jsx_runtime_1.jsx(
     NuiContext_1.NuiContext.Provider,
