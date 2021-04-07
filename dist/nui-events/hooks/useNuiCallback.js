@@ -103,6 +103,8 @@ var useNuiCallback = function (app, method, handler, errHandler) {
   var fetch = react_1.useCallback(function (data) {
     setLoading(function (curr) {
       if (!curr) {
+        setError(null);
+        setResponse(null);
         fetchRef.current = sendAbortable(methodNameRef.current, data);
         return true;
       }
