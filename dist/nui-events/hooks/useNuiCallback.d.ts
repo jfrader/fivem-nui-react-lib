@@ -1,5 +1,9 @@
+declare type UseNuiCallbackFetchOptions = {
+  timeout: number;
+};
+declare type UseNuiCallbackFetch<I> = (input?: I, options?: UseNuiCallbackFetchOptions) => void;
 declare type UseNuiCallbackResponse<I, R> = [
-  (d?: I) => void,
+  UseNuiCallbackFetch<I>,
   {
     loading: boolean;
     error: unknown;

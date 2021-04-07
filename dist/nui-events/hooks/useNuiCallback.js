@@ -72,10 +72,17 @@ var useNuiCallback = function (app, method, handler, errHandler) {
     },
     [errHandler]
   );
-  // React to loading change and starting timeout timer.
-  react_1.useEffect(
-    function () {
-      if (loading && !timeoutRef.current) {
+  // Handle the success and error events for this method
+  useNuiEvent_1.useNuiEvent(appNameRef.current, methodNameRef.current + "Success", onSuccess);
+  useNuiEvent_1.useNuiEvent(appNameRef.current, methodNameRef.current + "Error", onError);
+  // Only fetch if we are not loading/waiting the events.
+  var fetch = react_1.useCallback(function (data, options) {
+    setLoading(function (curr) {
+      if (!curr) {
+        setError(null);
+        setResponse(null);
+        fetchRef.current = sendAbortable(methodNameRef.current, data);
+        var timeoutTime_1 = (options && options.timeout) || callbackTimeout;
         clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(function () {
           setTimedOut(true);
@@ -84,28 +91,14 @@ var useNuiCallback = function (app, method, handler, errHandler) {
               'fivem-nui-react-lib: "' +
                 eventNameRef.current +
                 '" event callback timed out after ' +
-                callbackTimeout +
+                timeoutTime_1 +
                 " milliseconds"
             )
           );
           fetchRef.current && fetchRef.current.abort();
           timeoutRef.current = undefined;
           fetchRef.current = undefined;
-        }, callbackTimeout);
-      }
-    },
-    [loading, onError]
-  );
-  // Handle the success and error events for this method
-  useNuiEvent_1.useNuiEvent(appNameRef.current, methodNameRef.current + "Success", onSuccess);
-  useNuiEvent_1.useNuiEvent(appNameRef.current, methodNameRef.current + "Error", onError);
-  // Only fetch if we are not loading/waiting the events.
-  var fetch = react_1.useCallback(function (data) {
-    setLoading(function (curr) {
-      if (!curr) {
-        setError(null);
-        setResponse(null);
-        fetchRef.current = sendAbortable(methodNameRef.current, data);
+        }, timeoutTime_1);
         return true;
       }
       return curr;

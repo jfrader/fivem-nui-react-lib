@@ -1,10 +1,16 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useRef, useState } from "react";
 import { NuiContext } from "../context/NuiContext";
 import { IAbortableFetch } from "../providers/NuiProvider";
 import { eventNameFactory } from "../utils/eventNameFactory";
 import { useNuiEvent } from "./useNuiEvent";
 
-type UseNuiCallbackResponse<I, R> = [(d?: I) => void, { loading: boolean; error: unknown; response: R }];
+type UseNuiCallbackFetchOptions = {
+  timeout: number;
+};
+
+type UseNuiCallbackFetch<I> = (input?: I, options?: UseNuiCallbackFetchOptions) => void;
+
+type UseNuiCallbackResponse<I, R> = [UseNuiCallbackFetch<I>, { loading: boolean; error: unknown; response: R }];
 
 /**
  * Make a callback to "myEvent" by sending back "myEventSuccess" or "myEventError" from the client
@@ -74,35 +80,33 @@ export const useNuiCallback = <I = unknown, R = unknown>(
     [errHandler]
   );
 
-  // React to loading change and starting timeout timer.
-  useEffect(() => {
-    if (loading && !timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => {
-        setTimedOut(true);
-        onError(
-          new Error(
-            `fivem-nui-react-lib: "${eventNameRef.current}" event callback timed out after ${callbackTimeout} milliseconds`
-          )
-        );
-        fetchRef.current && fetchRef.current.abort();
-        timeoutRef.current = undefined;
-        fetchRef.current = undefined;
-      }, callbackTimeout);
-    }
-  }, [loading, onError]);
-
   // Handle the success and error events for this method
   useNuiEvent(appNameRef.current, `${methodNameRef.current}Success`, onSuccess);
   useNuiEvent(appNameRef.current, `${methodNameRef.current}Error`, onError);
 
   // Only fetch if we are not loading/waiting the events.
-  const fetch = useCallback((data?: I) => {
+  const fetch = useCallback((data?: I, options?: UseNuiCallbackFetchOptions) => {
     setLoading((curr) => {
       if (!curr) {
         setError(null);
         setResponse(null);
         fetchRef.current = sendAbortable(methodNameRef.current, data);
+
+        const timeoutTime = (options && options.timeout) || callbackTimeout;
+
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() => {
+          setTimedOut(true);
+          onError(
+            new Error(
+              `fivem-nui-react-lib: "${eventNameRef.current}" event callback timed out after ${timeoutTime} milliseconds`
+            )
+          );
+          fetchRef.current && fetchRef.current.abort();
+          timeoutRef.current = undefined;
+          fetchRef.current = undefined;
+        }, timeoutTime);
+
         return true;
       }
       return curr;
