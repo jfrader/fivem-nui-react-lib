@@ -93,7 +93,8 @@ export const useNuiCallback = <I = unknown, R = unknown>(
         setResponse(null);
         fetchRef.current = sendAbortable(methodNameRef.current, data);
 
-        const timeoutTime = (options && options.timeout) || callbackTimeout;
+        const _options = options || { timeout: callbackTimeout };
+        const timeoutTime = _options.timeout === false ? false : _options.timeout || callbackTimeout;
 
         if (timeoutTime) {
           clearTimeout(timeoutRef.current);
