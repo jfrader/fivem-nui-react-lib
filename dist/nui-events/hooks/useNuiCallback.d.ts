@@ -1,15 +1,12 @@
 declare type UseNuiCallbackFetchOptions = {
-  timeout: number | false;
+    timeout: number | false;
 };
 declare type UseNuiCallbackFetch<I> = (input?: I, options?: UseNuiCallbackFetchOptions) => void;
-declare type UseNuiCallbackResponse<I, R> = [
-  UseNuiCallbackFetch<I>,
-  {
+declare type UseNuiCallbackResponse<I, R> = [UseNuiCallbackFetch<I>, {
     loading: boolean;
     error: unknown;
     response: R;
-  }
-];
+}];
 /**
  * Make a callback to "myEvent" by sending back "myEventSuccess" or "myEventError" from the client
  * @param app {string} needs to be the same here and in the success and error response events
@@ -23,10 +20,5 @@ declare type UseNuiCallbackResponse<I, R> = [
  *  fetchUser(11);
  * }, [fetchUser]);
  */
-export declare const useNuiCallback: <I = unknown, R = unknown>(
-  app: string,
-  method: string,
-  handler?: (res: R) => void,
-  errHandler?: (err: unknown) => void
-) => UseNuiCallbackResponse<I, R>;
+export declare const useNuiCallback: <I = unknown, R = unknown>(app: string, method: string, handler?: (res: R) => void, errHandler?: (err: unknown) => void) => UseNuiCallbackResponse<I, R>;
 export {};

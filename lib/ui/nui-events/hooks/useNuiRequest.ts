@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { NuiContext } from "../context/NuiContext";
 
 /**
@@ -16,5 +16,5 @@ export const useNuiRequest = (): Pick<NuiContext, "send" | "sendAbortable"> => {
   }
 
   const { send, sendAbortable } = context;
-  return { send, sendAbortable };
+  return useMemo(() => ({ send, sendAbortable }), [send, sendAbortable]);
 };

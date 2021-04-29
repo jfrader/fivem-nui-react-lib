@@ -11,12 +11,11 @@ var NuiContext_1 = require("../context/NuiContext");
  * return <Button onClick={() => send({ someArgument: 1 })}>Click Me!</Button>
  */
 var useNuiRequest = function () {
-  var context = react_1.useContext(NuiContext_1.NuiContext);
-  if (!context) {
-    throw new Error("fivem-nui-react-lib: useNuiRequest must be used inside NuiProvider passing the `resource` prop");
-  }
-  var send = context.send,
-    sendAbortable = context.sendAbortable;
-  return { send: send, sendAbortable: sendAbortable };
+    var context = react_1.useContext(NuiContext_1.NuiContext);
+    if (!context) {
+        throw new Error("fivem-nui-react-lib: useNuiRequest must be used inside NuiProvider passing the `resource` prop");
+    }
+    var send = context.send, sendAbortable = context.sendAbortable;
+    return react_1.useMemo(function () { return ({ send: send, sendAbortable: sendAbortable }); }, [send, sendAbortable]);
 };
 exports.useNuiRequest = useNuiRequest;

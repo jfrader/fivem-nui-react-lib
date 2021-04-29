@@ -1,11 +1,8 @@
-declare type UseNuiEventCallbackResponse<I, R> = [
-  (d?: I) => void,
-  {
+declare type UseNuiEventCallbackResponse<I, R> = [(d?: I) => void, {
     loading: boolean;
     error: unknown;
     response: R;
-  }
-];
+}];
 /**
  * @deprecated use useNuiCallback instead
  * Make a callback to "myEvent" by sending back "myEventSuccess" or "myEventError" from the client
@@ -15,10 +12,5 @@ declare type UseNuiEventCallbackResponse<I, R> = [
  * @param errHandler {function} receive the data sent by the client when errored
  * @returns {[fetchFn, { loading, error, response }]}
  */
-export declare const useNuiEventCallback: <I = unknown, R = unknown>(
-  app: string,
-  method: string,
-  handler?: (res: R) => void,
-  errHandler?: (err: unknown) => void
-) => UseNuiEventCallbackResponse<I, R>;
+export declare const useNuiEventCallback: <I = unknown, R = unknown>(app: string, method: string, handler?: (res: R) => void, errHandler?: (err: unknown) => void) => UseNuiEventCallbackResponse<I, R>;
 export {};
