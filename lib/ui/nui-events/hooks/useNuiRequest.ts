@@ -21,7 +21,8 @@ type UseNuiRequestOptions = {
 
 /**
  * Send requests to the client
- * @param {string} [resource] override the provider resource name with the resource name to send the event to
+ * @param {Object} [options]
+ * @param {string} [options.resource] override the provider resource name with the resource name to send the event to
  * @returns {useNuiRequestResponse} object with send event method
  * @example
  * const { send } = useNuiRequest();
@@ -33,7 +34,7 @@ type UseNuiRequestOptions = {
  * </NuiProvider>
  *
  */
-export const useNuiRequest = ({ resource }: UseNuiRequestOptions): Pick<NuiContext, "send" | "sendAbortable"> => {
+export const useNuiRequest = ({ resource }: UseNuiRequestOptions = {}): Pick<NuiContext, "send" | "sendAbortable"> => {
   const context = useContext(NuiContext);
 
   if (!context) {
