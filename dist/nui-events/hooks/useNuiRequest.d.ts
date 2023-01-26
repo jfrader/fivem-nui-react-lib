@@ -1,6 +1,6 @@
 import { NuiContext } from "../context/NuiContext";
 declare type UseNuiRequestOptions = {
-    resource?: string;
+  resource?: string;
 };
 /**
  * @typedef {Object} useNuiRequestResponse
@@ -17,7 +17,8 @@ declare type UseNuiRequestOptions = {
  */
 /**
  * Send requests to the client
- * @param {string} [resource] override the provider resource name with the resource name to send the event to
+ * @param {Object} [options]
+ * @param {string} [options.resource] override the provider resource name with the resource name to send the event to
  * @returns {useNuiRequestResponse} object with send event method
  * @example
  * const { send } = useNuiRequest();
@@ -29,5 +30,5 @@ declare type UseNuiRequestOptions = {
  * </NuiProvider>
  *
  */
-export declare const useNuiRequest: ({ resource }: UseNuiRequestOptions) => Pick<NuiContext, "send" | "sendAbortable">;
+export declare const useNuiRequest: ({ resource }?: UseNuiRequestOptions) => Pick<NuiContext, "send" | "sendAbortable">;
 export {};

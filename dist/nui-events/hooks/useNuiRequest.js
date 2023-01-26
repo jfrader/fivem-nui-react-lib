@@ -18,7 +18,8 @@ var NuiContext_1 = require("../context/NuiContext");
  */
 /**
  * Send requests to the client
- * @param {string} [resource] override the provider resource name with the resource name to send the event to
+ * @param {Object} [options]
+ * @param {string} [options.resource] override the provider resource name with the resource name to send the event to
  * @returns {useNuiRequestResponse} object with send event method
  * @example
  * const { send } = useNuiRequest();
@@ -31,22 +32,33 @@ var NuiContext_1 = require("../context/NuiContext");
  *
  */
 var useNuiRequest = function (_a) {
-    var resource = _a.resource;
-    var context = react_1.useContext(NuiContext_1.NuiContext);
-    if (!context) {
-        throw new Error("fivem-nui-react-lib: useNuiRequest must be used inside NuiProvider passing the `resource` prop");
-    }
-    var send = context.send, sendAbortable = context.sendAbortable;
-    return react_1.useMemo(function () { return ({
+  var _b = _a === void 0 ? {} : _a,
+    resource = _b.resource;
+  var context = react_1.useContext(NuiContext_1.NuiContext);
+  if (!context) {
+    throw new Error("fivem-nui-react-lib: useNuiRequest must be used inside NuiProvider passing the `resource` prop");
+  }
+  var send = context.send,
+    sendAbortable = context.sendAbortable;
+  return react_1.useMemo(
+    function () {
+      return {
         send: function (event, data) {
-            if (data === void 0) { data = {}; }
-            return send(event, data, resource);
+          if (data === void 0) {
+            data = {};
+          }
+          return send(event, data, resource);
         },
         sendAbortable: function (event, data) {
-            if (data === void 0) { data = {}; }
-            return sendAbortable(event, data, resource);
+          if (data === void 0) {
+            data = {};
+          }
+          return sendAbortable(event, data, resource);
         },
-    }); }, [send, sendAbortable]);
+      };
+    },
+    [send, sendAbortable]
+  );
 };
 exports.useNuiRequest = useNuiRequest;
 exports.useNuiRequest;
