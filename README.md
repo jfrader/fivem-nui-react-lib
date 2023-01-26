@@ -12,7 +12,9 @@ https://github.com/jfrader/fivem-nui-react-boilerplate
 
 `npm install --save fivem-nui-react-lib`
 
-Use Provider
+### provider
+
+You need a provider to set the resource name for events
 
 ```js
 import { NuiProvider } from "fivem-nui-react-lib";
@@ -48,7 +50,9 @@ function MyComponent() {
   const [myState, setMyState] = useState(false);
   useNuiEvent("app-name", "method-name", setMyState);
 }
+```
 
+```js
 // CLIENT
 sendNuiMessage(
   JSON.stringify({
@@ -71,7 +75,9 @@ function MyComponent() {
   const { send } = useNuiRequest();
   send("method-name", { myArgument: "isAwesome" });
 }
+```
 
+```js
 // CLIENT
 RegisterNuiCallbackType(`__cfx_nui:myEvent`);
 on(`__cfx_nui:myEvent`, (data, cb) => {
@@ -80,6 +86,18 @@ on(`__cfx_nui:myEvent`, (data, cb) => {
   // Callback to prevent errors
   cb();
 });
+```
+
+Send requests to another resoruce, overriding provider
+
+```js
+// UI
+import { useNuiRequest } from "fivem-nui-react-lib";
+
+function MyComponent() {
+  const { send } = useNuiRequest({ resource: "another-resource" });
+  send("method-name", { myArgument: "isAwesome" });
+}
 ```
 
 ### useNuiCallback
@@ -99,7 +117,9 @@ function MyComponent() {
     fetchMyMethod({ argument: 1 });
   }, [fetchMyMethod]);
 }
+```
 
+```js
 // CLIENT
 RegisterNuiCallbackType(`__cfx_nui:myEvent`);
 on(`__cfx_nui:myEvent`, (data, cb) => {
