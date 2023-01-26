@@ -23,7 +23,7 @@ var NuiContext_1 = require("../context/NuiContext");
  * @returns {useNuiRequestResponse} object with send event method
  * @example
  * const { send } = useNuiRequest();
- * const { sendToAnotherResource } = useNuiRequest("another-resource");
+ * const { send: sendToAnotherResource } = useNuiRequest("another-resource");
  *
  * return <NuiProvider resource="phone-resource">
  *   <Button onClick={() => send({ resourceOneArgument: 1 })}>Send to Phone Resource</Button>
