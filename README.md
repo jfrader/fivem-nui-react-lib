@@ -140,7 +140,7 @@ Feel free to contribute and/or suggest changes.
 
 fivem-nui-react-lib - A set of tools for using FiveM NUI events in React
 
-Copyright (C) 2021 J Francisco Rader <franciscorader@gmail.com> (kidz)
+Copyright (C) 2023 Fran <jfrader.com> <github.com/jfrader>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
