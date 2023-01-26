@@ -1,6 +1,6 @@
 import { NuiContext } from "../context/NuiContext";
 declare type UseNuiRequestOptions = {
-  resource?: string;
+    resource?: string;
 };
 /**
  * @typedef {Object} useNuiRequestResponse
