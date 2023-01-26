@@ -4,18 +4,59 @@ exports.useNuiRequest = void 0;
 var react_1 = require("react");
 var NuiContext_1 = require("../context/NuiContext");
 /**
+ * @typedef {Object} useNuiRequestResponse
+ * @property {number} send - Method to send an event to the server
+ * @property {number} sendAbortable - Same as send but able to abort mission :)
+ *
+ * @function sendFn
+ * @param {string} event
+ * @param {any} data
+ *
+ * @function sendAbortableFn
+ * @param {string} event
+ * @param {any} data
+ */
+/**
  * Send requests to the client
- * @returns {{ send: function, sendAbortable: function }} { send: function, sendAbortable: function }
+ * @param {string} [resource] override the provider resource name with the resource name to send the event to
+ * @returns {useNuiRequestResponse} object with send event method
  * @example
  * const { send } = useNuiRequest();
- * return <Button onClick={() => send({ someArgument: 1 })}>Click Me!</Button>
+ * const { sendToAnotherResource } = useNuiRequest("another-resource");
+ *
+ * return <NuiProvider resource="phone-resource">
+ *   <Button onClick={() => send({ resourceOneArgument: 1 })}>Send to Phone Resource</Button>
+ *   <Button onClick={() => sendToAnotherResource({ resourceTwoArgument: 2 })}>Send to Another Resource</Button>
+ * </NuiProvider>
+ *
  */
-var useNuiRequest = function () {
-    var context = react_1.useContext(NuiContext_1.NuiContext);
-    if (!context) {
-        throw new Error("fivem-nui-react-lib: useNuiRequest must be used inside NuiProvider passing the `resource` prop");
-    }
-    var send = context.send, sendAbortable = context.sendAbortable;
-    return react_1.useMemo(function () { return ({ send: send, sendAbortable: sendAbortable }); }, [send, sendAbortable]);
+var useNuiRequest = function (_a) {
+  var resource = _a.resource;
+  var context = react_1.useContext(NuiContext_1.NuiContext);
+  if (!context) {
+    throw new Error("fivem-nui-react-lib: useNuiRequest must be used inside NuiProvider passing the `resource` prop");
+  }
+  var send = context.send,
+    sendAbortable = context.sendAbortable;
+  return react_1.useMemo(
+    function () {
+      return {
+        send: function (event, data) {
+          if (data === void 0) {
+            data = {};
+          }
+          return send(event, data, resource);
+        },
+        sendAbortable: function (event, data) {
+          if (data === void 0) {
+            data = {};
+          }
+          return sendAbortable(event, data, resource);
+        },
+      };
+    },
+    [send, sendAbortable]
+  );
 };
 exports.useNuiRequest = useNuiRequest;
+exports.useNuiRequest;

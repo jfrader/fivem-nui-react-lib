@@ -60,12 +60,12 @@ export const NuiProvider = ({
     return () => window.removeEventListener("message", eventListener);
   }, []);
 
-  const send = useCallback(async (event: string, data = {}) => {
-    return fetch(...getParams(resourceRef.current, event, data));
+  const send = useCallback(async (event: string, data = {}, resource?: string) => {
+    return fetch(...getParams(resource || resourceRef.current, event, data));
   }, []);
 
-  const sendAbortable = useCallback((event: string, data = {}): IAbortableFetch => {
-    return abortableFetch(...getParams(resourceRef.current, event, data));
+  const sendAbortable = useCallback((event: string, data = {}, resource?: string): IAbortableFetch => {
+    return abortableFetch(...getParams(resource || resourceRef.current, event, data));
   }, []);
 
   return (

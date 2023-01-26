@@ -10,6 +10,11 @@ function addEventListener<T extends EventTarget, E extends Event>(
 }
 
 /**
+ * @callback nuiEventHandler
+ * @param {any} responseData
+ */
+
+/**
  * A hook to receive data from the client in the following schema:
  *
  * {
@@ -18,10 +23,10 @@ function addEventListener<T extends EventTarget, E extends Event>(
  *   "data": { anyValue: 1 }
  * }
  *
- * @param app {string} The app name which the client will emit to
- * @param method {string} The specific `method` field that should be listened for.
- * @param handler {function} The callback function that will handle data received from the client
- * @returns {void} void
+ * @param {string} app The app name which the client will emit to
+ * @param {string} method  The specific `method` field that should be listened for.
+ * @param {nuiEventHandler} handler The callback function that will handle the data received from the server
+ *
  * @example
  * const [dataState, setDataState] = useState<boolean>();
  * useNuiEvent<boolean>("appname", "methodname", setDataState);
