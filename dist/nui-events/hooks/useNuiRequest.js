@@ -57,8 +57,7 @@ var useNuiRequest = function (_a) {
         },
       };
     },
-    [send, sendAbortable]
+    [send, sendAbortable, resource]
   );
 };
 exports.useNuiRequest = useNuiRequest;
-exports.useNuiRequest;

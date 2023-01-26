@@ -47,8 +47,6 @@ export const useNuiRequest = ({ resource }: UseNuiRequestOptions = {}): Pick<Nui
       send: (event: string, data = {}) => send(event, data, resource),
       sendAbortable: (event: string, data = {}) => sendAbortable(event, data, resource),
     }),
-    [send, sendAbortable]
+    [send, sendAbortable, resource]
   );
 };
-
-useNuiRequest;

@@ -56,9 +56,19 @@ export const useNuiCallback = <I = unknown, R = unknown>(
   const methodNameRef = useRef<string>(method);
   const appNameRef = useRef<string>(app);
 
+  // has timed out
   const [timedOut, setTimedOut] = useState<boolean>(false);
+
+  // has failed at network or browser level
+  const [failed, setFailed] = useState<boolean>(false);
+
+  // is waiting for server callback response event
   const [loading, setLoading] = useState<boolean>(false);
+
+  // returned error from server callback event or network failure
   const [error, setError] = useState<unknown>(null);
+
+  // response from server callback event
   const [response, setResponse] = useState<R>(null);
 
   const onSuccess = useCallback(
@@ -99,45 +109,50 @@ export const useNuiCallback = <I = unknown, R = unknown>(
   useNuiEvent(appNameRef.current, `${methodNameRef.current}Error`, onError);
 
   // Only fetch if we are not loading/waiting the events.
-  const fetch = useCallback((data?: I, options?: UseNuiCallbackFetchOptions) => {
-    setLoading((curr) => {
-      if (!curr) {
-        setTimedOut(false);
-        setError(null);
-        setResponse(null);
-        fetchRef.current = sendAbortable(methodNameRef.current, data);
+  const fetch = useCallback(
+    (data?: I, options?: UseNuiCallbackFetchOptions) => {
+      setLoading((curr) => {
+        if (!curr) {
+          setTimedOut(false);
+          setFailed(false);
+          setError(null);
+          setResponse(null);
+          fetchRef.current = sendAbortable(methodNameRef.current, data);
 
-        fetchRef.current.promise.catch((e) => {
-          onError(e);
-          timeoutRef.current = undefined;
-          fetchRef.current = undefined;
-        });
+          fetchRef.current.promise.catch((e) => {
+            if (!timedOut) {
+              onError(e);
+              setFailed(true);
+              timeoutRef.current = undefined;
+              fetchRef.current = undefined;
+            }
+          });
 
-        const _options = options || { timeout: callbackTimeout };
-        const timeoutTime = _options.timeout === false ? false : _options.timeout || callbackTimeout;
+          const _options = options || { timeout: callbackTimeout };
+          const timeoutTime = _options.timeout === false ? false : _options.timeout || callbackTimeout;
 
-        if (timeoutTime) {
-          clearTimeout(timeoutRef.current);
-          timeoutRef.current = setTimeout(() => {
-            setTimedOut(true);
-            onError(
-              new Error(
-                `fivem-nui-react-lib: "${eventNameRef.current}" event callback timed out after ${timeoutTime} milliseconds`
-              )
-            );
-            fetchRef.current && fetchRef.current.abort();
-            timeoutRef.current = undefined;
-            fetchRef.current = undefined;
-          }, timeoutTime);
+          if (timeoutTime && !failed) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = setTimeout(() => {
+              setTimedOut(true);
+              onError(
+                new Error(
+                  `fivem-nui-react-lib: "${eventNameRef.current}" event callback timed out after ${timeoutTime} milliseconds`
+                )
+              );
+              fetchRef.current && fetchRef.current.abort();
+              timeoutRef.current = undefined;
+              fetchRef.current = undefined;
+            }, timeoutTime);
+          }
+
+          return true;
         }
-
-        return true;
-      }
-      return curr;
-    });
-  }, []);
+        return curr;
+      });
+    },
+    [callbackTimeout, failed, onError, sendAbortable, timedOut]
+  );
 
   return [fetch, { loading, response, error }];
 };
-
-useNuiCallback;

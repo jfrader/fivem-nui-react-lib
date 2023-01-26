@@ -41,7 +41,7 @@ export const NuiProvider = ({
   resource: string;
   children: JSX.Element;
 }): JSX.Element => {
-  const resourceRef = useRef<string>(resource || '');
+  const resourceRef = useRef<string>(resource || "");
   const timeoutRef = useRef<number>(timeout || DEFAULT_TIMEOUT);
 
   const eventListener = (event: { data: { app: string; method: string; data: unknown } }) => {
@@ -60,12 +60,12 @@ export const NuiProvider = ({
     return () => window.removeEventListener("message", eventListener);
   }, []);
 
-  const send = useCallback(async (event: string, data = {}, resource?: string) => {
-    return fetch(...getParams(resource || resourceRef.current, event, data));
+  const send = useCallback(async (event: string, data = {}, res?: string) => {
+    return fetch(...getParams(res || resourceRef.current, event, data));
   }, []);
 
-  const sendAbortable = useCallback((event: string, data = {}, resource?: string): IAbortableFetch => {
-    return abortableFetch(...getParams(resource || resourceRef.current, event, data));
+  const sendAbortable = useCallback((event: string, data = {}, res?: string): IAbortableFetch => {
+    return abortableFetch(...getParams(res || resourceRef.current, event, data));
   }, []);
 
   return (
