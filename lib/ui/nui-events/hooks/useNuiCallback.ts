@@ -109,50 +109,47 @@ export const useNuiCallback = <I = unknown, R = unknown>(
   useNuiEvent(appNameRef.current, `${methodNameRef.current}Error`, onError);
 
   // Only fetch if we are not loading/waiting the events.
-  const fetch = useCallback(
-    (data?: I, options?: UseNuiCallbackFetchOptions) => {
-      setLoading((curr) => {
-        if (!curr) {
-          setTimedOut(false);
-          setFailed(false);
-          setError(null);
-          setResponse(null);
-          fetchRef.current = sendAbortable(methodNameRef.current, data);
+  const fetch = (data?: I, options?: UseNuiCallbackFetchOptions) => {
+    setLoading((curr) => {
+      if (!curr) {
+        setTimedOut(false);
+        setFailed(false);
+        setError(null);
+        setResponse(null);
+        fetchRef.current = sendAbortable(methodNameRef.current, data);
 
-          fetchRef.current.promise.catch((e) => {
-            if (!timedOut) {
-              onError(e);
-              setFailed(true);
-              timeoutRef.current = undefined;
-              fetchRef.current = undefined;
-            }
-          });
-
-          const _options = options || { timeout: callbackTimeout };
-          const timeoutTime = _options.timeout === false ? false : _options.timeout || callbackTimeout;
-
-          if (timeoutTime && !failed) {
-            clearTimeout(timeoutRef.current);
-            timeoutRef.current = setTimeout(() => {
-              setTimedOut(true);
-              onError(
-                new Error(
-                  `fivem-nui-react-lib: "${eventNameRef.current}" event callback timed out after ${timeoutTime} milliseconds`
-                )
-              );
-              fetchRef.current && fetchRef.current.abort();
-              timeoutRef.current = undefined;
-              fetchRef.current = undefined;
-            }, timeoutTime);
+        fetchRef.current.promise.catch((e) => {
+          if (!timedOut) {
+            onError(e);
+            setFailed(true);
+            timeoutRef.current = undefined;
+            fetchRef.current = undefined;
           }
+        });
 
-          return true;
+        const _options = options || { timeout: callbackTimeout };
+        const timeoutTime = _options.timeout === false ? false : _options.timeout || callbackTimeout;
+
+        if (timeoutTime && !failed) {
+          clearTimeout(timeoutRef.current);
+          timeoutRef.current = setTimeout(() => {
+            setTimedOut(true);
+            onError(
+              new Error(
+                `fivem-nui-react-lib: "${eventNameRef.current}" event callback timed out after ${timeoutTime} milliseconds`
+              )
+            );
+            fetchRef.current && fetchRef.current.abort();
+            timeoutRef.current = undefined;
+            fetchRef.current = undefined;
+          }, timeoutTime);
         }
-        return curr;
-      });
-    },
-    [callbackTimeout, failed, onError, sendAbortable, timedOut]
-  );
+
+        return true;
+      }
+      return curr;
+    });
+  };
 
   return [fetch, { loading, response, error }];
 };
