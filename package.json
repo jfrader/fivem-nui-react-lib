@@ -1,6 +1,6 @@
 {
   "name": "fivem-nui-react-lib",
-  "description": "A set of tools for using FiveM NUI events in React",
+  "description": "React provider and hooks for FiveM NUI",
   "author": "fran <kidz@reacher.me>",
   "license": "GPL-3.0-or-later",
   "version": "2.3.11",
