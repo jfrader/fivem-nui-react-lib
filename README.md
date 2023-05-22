@@ -79,7 +79,7 @@ function MyComponent() {
 
 ```js
 // CLIENT
-RegisterNuiCallbackType(`__cfx_nui:myEvent`);
+RegisterNuiCallbackType(`myEvent`);
 on(`__cfx_nui:myEvent`, (data, cb) => {
   // Use the arguments
   emitNet("myEvent", { input: data.myArgument });
@@ -121,7 +121,7 @@ function MyComponent() {
 
 ```js
 // CLIENT
-RegisterNuiCallbackType(`__cfx_nui:myEvent`);
+RegisterNuiCallbackType(`myEvent`);
 on(`__cfx_nui:myEvent`, (data, cb) => {
   // emit some event to the server:
   emitNet("myEvent", { input: data });
