@@ -3,7 +3,7 @@
   "description": "React provider and hooks for FiveM NUI",
   "author": "fran <kidz@reacher.me>",
   "license": "GPL-3.0-or-later",
-  "version": "2.3.11",
+  "version": "2.3.13",
   "main": "dist/index.js",
   "scripts": {
     "build": "yarn rimraf dist && tsc",
