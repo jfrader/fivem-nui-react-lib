@@ -1,12 +1,15 @@
-declare type UseNuiCallbackFetchOptions = {
-    timeout: number | false;
+type UseNuiCallbackFetchOptions = {
+  timeout: number | false;
 };
-declare type UseNuiCallbackFetch<I> = (input?: I, options?: UseNuiCallbackFetchOptions) => void;
-declare type UseNuiCallbackResponse<I, R> = [UseNuiCallbackFetch<I>, {
+type UseNuiCallbackFetch<I> = (input?: I, options?: UseNuiCallbackFetchOptions) => void;
+type UseNuiCallbackResponse<I, R> = [
+  UseNuiCallbackFetch<I>,
+  {
     loading: boolean;
     error: unknown;
     response: R;
-}];
+  },
+];
 /**
  * @callback nuiEventHandler
  * @param {any} responseData
@@ -33,5 +36,10 @@ declare type UseNuiCallbackResponse<I, R> = [UseNuiCallbackFetch<I>, {
  *  fetchUser(11);
  * }, [fetchUser]);
  */
-export declare const useNuiCallback: <I = unknown, R = unknown>(app: string, method: string, handler?: (res: R) => void, errHandler?: (err: unknown) => void) => UseNuiCallbackResponse<I, R>;
+export declare const useNuiCallback: <I = unknown, R = unknown>(
+  app: string,
+  method: string,
+  handler?: (res: R) => void,
+  errHandler?: (err: unknown) => void,
+) => UseNuiCallbackResponse<I, R>;
 export {};
