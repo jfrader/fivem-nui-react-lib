@@ -1,0 +1,285 @@
+{
+  "communities": {
+    "0": [
+      "eslint",
+      "eslint_config_prettier",
+      "eslint_plugin_prettier",
+      "eslint_plugin_react",
+      "eslint_plugin_react_hooks",
+      "husky",
+      "lint_staged",
+      "package_devdependencies",
+      "package_devdependencies_eslint",
+      "package_devdependencies_eslint_config_prettier",
+      "package_devdependencies_eslint_plugin_prettier",
+      "package_devdependencies_eslint_plugin_react",
+      "package_devdependencies_eslint_plugin_react_hooks",
+      "package_devdependencies_husky",
+      "package_devdependencies_lint_staged",
+      "package_devdependencies_prettier",
+      "package_devdependencies_rimraf",
+      "package_devdependencies_types_node",
+      "package_devdependencies_types_react",
+      "package_devdependencies_typescript",
+      "package_devdependencies_typescript_eslint_eslint_plugin",
+      "package_devdependencies_typescript_eslint_parser",
+      "prettier",
+      "rimraf",
+      "types_node",
+      "types_react",
+      "typescript",
+      "typescript_eslint_eslint_plugin",
+      "typescript_eslint_parser"
+    ],
+    "1": [
+      "ref_dom",
+      "ref_dom_iterable",
+      "ref_esnext",
+      "tsconfig",
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_allowjs",
+      "tsconfig_compileroptions_allowsyntheticdefaultimports",
+      "tsconfig_compileroptions_declaration",
+      "tsconfig_compileroptions_esmoduleinterop",
+      "tsconfig_compileroptions_forceconsistentcasinginfilenames",
+      "tsconfig_compileroptions_isolatedmodules",
+      "tsconfig_compileroptions_jsx",
+      "tsconfig_compileroptions_lib",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_moduleresolution",
+      "tsconfig_compileroptions_noemit",
+      "tsconfig_compileroptions_nofallthroughcasesinswitch",
+      "tsconfig_compileroptions_outdir",
+      "tsconfig_compileroptions_resolvejsonmodule",
+      "tsconfig_compileroptions_skiplibcheck",
+      "tsconfig_compileroptions_strict",
+      "tsconfig_compileroptions_strictfunctiontypes",
+      "tsconfig_compileroptions_target",
+      "tsconfig_include",
+      "tsconfig_json_ref_lib"
+    ],
+    "2": [
+      "lib_ui_index",
+      "lib_ui_nui_events_context_nuicontext",
+      "lib_ui_nui_events_context_nuicontext_nuicontext",
+      "lib_ui_nui_events_hooks_usenuicallback",
+      "lib_ui_nui_events_hooks_usenuicallback_usenuicallback",
+      "lib_ui_nui_events_hooks_usenuicallback_usenuicallbackfetch",
+      "lib_ui_nui_events_hooks_usenuicallback_usenuicallbackfetchoptions",
+      "lib_ui_nui_events_hooks_usenuicallback_usenuicallbackresponse",
+      "lib_ui_nui_events_hooks_usenuievent",
+      "lib_ui_nui_events_hooks_usenuievent_addeventlistener",
+      "lib_ui_nui_events_hooks_usenuievent_usenuievent",
+      "lib_ui_nui_events_hooks_usenuirequest",
+      "lib_ui_nui_events_hooks_usenuirequest_usenuirequest",
+      "lib_ui_nui_events_hooks_usenuirequest_usenuirequestoptions",
+      "lib_ui_nui_events_providers_nuiprovider",
+      "lib_ui_nui_events_providers_nuiprovider_abortablefetch",
+      "lib_ui_nui_events_providers_nuiprovider_getparams",
+      "lib_ui_nui_events_providers_nuiprovider_iabortablefetch",
+      "lib_ui_nui_events_providers_nuiprovider_nuiprovider",
+      "lib_ui_nui_events_utils_eventnamefactory",
+      "lib_ui_nui_events_utils_eventnamefactory_eventnamefactory"
+    ],
+    "3": [
+      "package",
+      "package_author",
+      "package_description",
+      "package_files",
+      "package_json_ref_dist",
+      "package_license",
+      "package_lint_staged",
+      "package_lint_staged_js_ts",
+      "package_lint_staged_js_ts_css_md",
+      "package_main",
+      "package_name",
+      "package_repository",
+      "package_repository_type",
+      "package_repository_url",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_lint",
+      "package_scripts_prepare",
+      "package_scripts_test",
+      "package_version"
+    ],
+    "4": [
+      "eslintrc",
+      "eslintrc_env",
+      "eslintrc_env_browser",
+      "eslintrc_env_es2021",
+      "eslintrc_extends",
+      "eslintrc_ignorepatterns",
+      "eslintrc_json_ref_dist",
+      "eslintrc_json_ref_react",
+      "eslintrc_parser",
+      "eslintrc_plugins",
+      "eslintrc_rules",
+      "eslintrc_rules_no_console",
+      "eslintrc_rules_react_hooks_exhaustive_deps",
+      "eslintrc_rules_react_hooks_rules_of_hooks",
+      "ref_eslint_recommended",
+      "ref_plugin_react_recommended",
+      "ref_plugin_typescript_eslint_recommended",
+      "ref_react_hooks",
+      "ref_typescript_eslint"
+    ],
+    "5": [
+      "package_devdependencies_react",
+      "package_devdependencies_react_dom",
+      "package_json_ref_lib",
+      "package_keywords",
+      "package_peerdependencies",
+      "package_peerdependencies_react",
+      "package_peerdependencies_react_dom",
+      "react",
+      "react_dom",
+      "ref_events",
+      "ref_fivem",
+      "ref_gta5",
+      "ref_gtarp",
+      "ref_library",
+      "ref_nui"
+    ],
+    "6": [
+      "eslintrc_ecmafeatures_jsx",
+      "eslintrc_parseroptions",
+      "eslintrc_parseroptions_ecmafeatures",
+      "eslintrc_parseroptions_ecmaversion",
+      "eslintrc_parseroptions_sourcetype"
+    ],
+    "7": [
+      "prettierrc",
+      "prettierrc_printwidth",
+      "prettierrc_tabwidth"
+    ],
+    "8": [
+      "husky_pre_commit",
+      "husky_pre_commit__entry"
+    ]
+  },
+  "cohesion": {
+    "0": 0.06896551724137931,
+    "1": 0.08,
+    "2": 0.21428571428571427,
+    "3": 0.1,
+    "4": 0.10526315789473684,
+    "5": 0.13333333333333333,
+    "6": 0.4,
+    "7": 0.6666666666666666,
+    "8": 1.0
+  },
+  "gods": [
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 19
+    },
+    {
+      "id": "package_keywords",
+      "label": "keywords",
+      "degree": 9
+    },
+    {
+      "id": "lib_ui_nui_events_utils_eventnamefactory_eventnamefactory",
+      "label": "eventNameFactory()",
+      "degree": 7
+    },
+    {
+      "id": "lib_ui_nui_events_context_nuicontext_nuicontext",
+      "label": "NuiContext",
+      "degree": 5
+    },
+    {
+      "id": "lib_ui_nui_events_hooks_usenuievent_usenuievent",
+      "label": "useNuiEvent()",
+      "degree": 5
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 5
+    },
+    {
+      "id": "eslintrc_extends",
+      "label": "extends",
+      "degree": 4
+    },
+    {
+      "id": "eslintrc_parseroptions",
+      "label": "parserOptions",
+      "degree": 4
+    },
+    {
+      "id": "eslintrc_plugins",
+      "label": "plugins",
+      "degree": 4
+    },
+    {
+      "id": "eslintrc_rules",
+      "label": "rules",
+      "degree": 4
+    }
+  ],
+  "surprises": [
+    {
+      "source": "NuiContext",
+      "target": "IAbortableFetch",
+      "source_files": [
+        "lib/ui/nui-events/context/NuiContext.ts",
+        "lib/ui/nui-events/providers/NuiProvider.tsx"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "useNuiCallback()",
+      "target": "useNuiEvent()",
+      "source_files": [
+        "lib/ui/nui-events/hooks/useNuiCallback.ts",
+        "lib/ui/nui-events/hooks/useNuiEvent.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "useNuiCallback()",
+      "target": "eventNameFactory()",
+      "source_files": [
+        "lib/ui/nui-events/hooks/useNuiCallback.ts",
+        "lib/ui/nui-events/utils/eventNameFactory.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "useNuiEvent()",
+      "target": "eventNameFactory()",
+      "source_files": [
+        "lib/ui/nui-events/hooks/useNuiEvent.ts",
+        "lib/ui/nui-events/utils/eventNameFactory.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "NuiProvider()",
+      "target": "eventNameFactory()",
+      "source_files": [
+        "lib/ui/nui-events/providers/NuiProvider.tsx",
+        "lib/ui/nui-events/utils/eventNameFactory.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    }
+  ],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}
