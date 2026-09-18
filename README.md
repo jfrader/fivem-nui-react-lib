@@ -1,5 +1,10 @@
 # fivem-nui-react-lib
 
+[![npm version](https://img.shields.io/npm/v/fivem-nui-react-lib?style=flat)](https://www.npmjs.com/package/fivem-nui-react-lib)
+[![npm downloads](https://img.shields.io/npm/dm/fivem-nui-react-lib?style=flat)](https://www.npmjs.com/package/fivem-nui-react-lib)
+[![last commit](https://img.shields.io/github/last-commit/jfrader/fivem-nui-react-lib?style=flat)](https://github.com/jfrader/fivem-nui-react-lib/commits)
+[![license](https://img.shields.io/github/license/jfrader/fivem-nui-react-lib?style=flat)](./LICENSE.md)
+
 A (very opinionated) set of tools for using FiveM NUI events in React
 
 # example
